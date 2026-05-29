@@ -170,7 +170,7 @@ export default function Home() {
         <h2 className="text-3xl">Service & Restorations</h2>
 
         <p className="mt-4 max-w-2xl text-white/80">
-          Precision bicycle maintenance, restoration, and mechanical rebuilding.
+          Bicycle maintenance, restoration, and rebuilding.
         </p>
       </section>
 
