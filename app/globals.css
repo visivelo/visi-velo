@@ -44,8 +44,8 @@ textarea::placeholder {
   color: rgba(0,0,0,0.4);
 }
 
-/* all BOOK SERVICE BUTTONS (NOT NAV LINK "service") */
-a[href="/service"].book-service {
+/* all "BOOK SERVICE" BUTTONS */
+a.book-service {
   background-color: #ffffff;
   color: #000000 !important;
 }
