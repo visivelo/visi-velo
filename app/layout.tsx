@@ -23,7 +23,7 @@ export default function RootLayout({
 
             <nav className="hidden md:flex gap-10 text-sm text-white/70">
               <Link href="/service">Service</Link>
-              <Link href="/restorations">Restorations</Link>
+              <Link href="/builds">Builds</Link>
               <Link href="/shop">Shop</Link>
             </nav>
 

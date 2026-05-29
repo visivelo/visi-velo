@@ -173,7 +173,7 @@ export default function Home() {
             Book Service
           </Link>
 
-          <Link href="/Builds" className="px-6 py-3 border border-white/30 rounded-full text-sm">
+          <Link href="/Service Menu" className="px-6 py-3 border border-white/30 rounded-full text-sm">
             Service Menu
           </Link>
         </div>
