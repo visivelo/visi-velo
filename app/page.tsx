@@ -164,7 +164,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl max-w-xl text-white/90">
-          Bicycle workshop focused on professional service, restoration, and refining cycling systems
+          Bicycle workshop for pro service, restoration, and ELEVATING cycling experiences
         </p>
 
         <div className="mt-10 flex gap-4">
