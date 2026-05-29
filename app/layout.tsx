@@ -29,7 +29,7 @@ export default function RootLayout({
 
             <Link
               href="/service"
-              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black"
+              className="rounded-full bg-white px-5 py-2 text-sm font-retro sarif text-black"
             >
               Book Service
             </Link>
