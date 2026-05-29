@@ -151,7 +151,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl max-w-xl text-white opacity-90">
-          bicycle atelier focused on precision service, restoration, and refined cycling systems
+          bicycle atelier focused on professional service, restoration, and refined cycling systems
         </p>
 
         <div className="mt-10 flex gap-4">
