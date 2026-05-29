@@ -143,7 +143,6 @@ export default function Home() {
     "/Images/Builds/6.JPG",
     "/Images/Builds/7.JPG",
     "/Images/Builds/8.JPG",
-    "/Images/Builds/DSC04864.JPG",
     "/Images/Builds/DSC04866.JPG",
     "/Images/Builds/DSC04872.JPG",
     "/Images/Builds/DSC04892.JPG",
