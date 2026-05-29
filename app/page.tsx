@@ -143,12 +143,14 @@ export default function Home() {
     "/Images/Builds/6.JPG",
     "/Images/Builds/7.JPG",
     "/Images/Builds/8.JPG",
-    "/Images/Builds/DSC04866.JPG",
-    "/Images/Builds/DSC04872.JPG",
-    "/Images/Builds/DSC04892.JPG",
-    "/Images/Builds/DSC04904.JPG",
-    "/Images/Builds/DSC04906.JPG",
-    "/Images/Builds/DSC04912.JPG",
+    "/Images/Builds/9.JPG",
+    "/Images/Builds/10.JPG",
+    "/Images/Builds/11.JPG",
+    "/Images/Builds/12.JPG",
+    "/Images/Builds/13.JPG",
+    "/Images/Builds/14.JPG",
+    "/Images/Builds/15.JPG",
+    "/Images/Builds/16.JPG",
   ];
 
   const looped = [...images, ...images, ...images];
