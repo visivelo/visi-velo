@@ -20,7 +20,9 @@ export default function Home() {
       );
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -38,7 +40,7 @@ export default function Home() {
     const speed = 0.08;
     const cards = Array.from(track.children) as HTMLElement[];
 
-    let rafId = 0 as number;
+    let rafId = 0;
 
     const update = () => {
       current += (target - current) * speed;
@@ -64,7 +66,7 @@ export default function Home() {
 
       if (firstCard) {
         const cardWidth = firstCard.offsetWidth + 24;
-        const totalWidth = cardWidth * cards.length / 3;
+        const totalWidth = (cardWidth * cards.length) / 3;
 
         if (current > totalWidth * 2) {
           current -= totalWidth;
@@ -102,8 +104,8 @@ export default function Home() {
       isDown = false;
     };
 
-    // touch support
     let touchStartX = 0;
+
     const handleTouchStart = (e: TouchEvent) => {
       touchStartX = e.touches[0].clientX;
       startTarget = target;
@@ -118,6 +120,8 @@ export default function Home() {
     window.addEventListener("mousedown", handleDown);
     window.addEventListener("mousemove", handleMove);
     window.addEventListener("mouseup", handleUp);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
@@ -130,7 +134,6 @@ export default function Home() {
     };
   }, []);
 
-  // REAL IMAGES (your folder)
   const images = [
     "/Images/Builds/1.JPG",
     "/Images/Builds/2.JPG",
@@ -139,7 +142,6 @@ export default function Home() {
     "/Images/Builds/5.JPG",
     "/Images/Builds/6.JPG",
     "/Images/Builds/7.JPG",
-
     "/Images/Builds/DSC04864.JPG",
     "/Images/Builds/DSC04866.JPG",
     "/Images/Builds/DSC04872.JPG",
@@ -161,7 +163,7 @@ export default function Home() {
           viši velo
         </h1>
 
-        <p className="mt-6 text-lg md:text-xl max-w-xl text-white opacity-90">
+        <p className="mt-6 text-lg md:text-xl max-w-xl text-white/90">
           bicycle atelier focused on professional service, restoration, and refining cycling systems
         </p>
 
@@ -170,16 +172,15 @@ export default function Home() {
             Book Service
           </Link>
 
-          <Link href="/restorations" className="px-6 py-3 border border-white/30 rounded-full text-sm text-white">
+          <Link href="/restorations" className="px-6 py-3 border border-white/30 rounded-full text-sm">
             View Work
           </Link>
         </div>
       </section>
 
-      {/* SERVICE + RESTORATIONS */}
+      {/* SERVICE */}
       <section className="px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl">Service & Restorations</h2>
-
         <p className="mt-4 max-w-2xl text-white/80">
           Bicycle maintenance, restoration, and rebuilding.
         </p>
@@ -195,10 +196,7 @@ export default function Home() {
             className="flex gap-6 w-max will-change-transform"
           >
             {looped.map((src, i) => (
-              <div
-                key={i}
-                className="w-[320px] h-[220px] flex-shrink-0 transition-all duration-300"
-              >
+              <div key={i} className="w-[320px] h-[220px] flex-shrink-0">
                 <img
                   src={src}
                   className="w-full h-full object-cover rounded-xl"
@@ -218,11 +216,7 @@ export default function Home() {
       {/* BACKGROUND */}
       <div
         className="fixed inset-0 -z-10"
-        style={
-          {
-            "--scroll": "0",
-          } as React.CSSProperties
-        }
+        style={{ "--scroll": "0" } as React.CSSProperties}
       >
         <div className="absolute inset-0 bg-black" />
 
@@ -241,3 +235,6 @@ export default function Home() {
           }}
         />
       </div>
+    </main>
+  );
+}
