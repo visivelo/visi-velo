@@ -1,21 +1,9 @@
 import "./globals.css";
 import Link from "next/link";
-import { Inter, Bebas_Neue } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});
-
-const bebas = Bebas_Neue({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-serif",
-});
 
 export const metadata = {
-  title: "viši velo",
-  description: "bicycle atelier",
+  title: "Visi Velo",
+  description: "Bicycle atelier focused on precision service and restoration",
 };
 
 export default function RootLayout({
@@ -24,58 +12,47 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${bebas.variable}`}
-    >
-      <body>
+    <html lang="en">
+      <body className="bg-black text-white">
 
-        {/* NAVIGATION */}
-        <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 bg-white/10 backdrop-blur-md border-b border-white/10">
+        {/* GLOBAL NAV FRAME (shared across all pages) */}
+        <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur-md">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
-          {/* BRAND */}
-          <Link
-            href="/"
-            className="text-black/80"
-          >
-            viši velo
-          </Link>
+            {/* BRAND */}
+            <Link
+              href="/"
+              className="text-sm tracking-[0.35em] uppercase font-medium"
+            >
+              viši velo
+            </Link>
 
-          {/* CENTER LINKS */}
-          <div className="hidden md:flex gap-8 text-sm">
+            {/* NAV LINKS */}
+            <nav className="hidden md:flex gap-10 text-sm text-white/70">
+              <Link href="/service" className="hover:text-white transition">
+                Service
+              </Link>
+              <Link href="/restorations" className="hover:text-white transition">
+                Restorations
+              </Link>
+              <Link href="/shop" className="hover:text-white transition">
+                Shop
+              </Link>
+            </nav>
+
+            {/* CTA */}
             <Link
               href="/service"
-              className="text-black/70"
+              className="rounded-full bg-white px-5 py-2 text-sm font-semibold text-black"
             >
-              Service
+              Book Service
             </Link>
 
-            <Link
-              href="/restorations"
-              className="text-black/70"
-            >
-              Restorations
-            </Link>
-
-            <Link
-              href="/shop"
-              className="text-black/70"
-            >
-              Shop
-            </Link>
           </div>
+        </header>
 
-          {/* CTA */}
-          <Link
-            href="/service"
-            className="book-service px-4 py-2 bg-white text-black rounded-full text-sm"
-          >
-            Book Service
-          </Link>
-
-        </nav>
-
-        <div className="pt-20">
+        {/* PAGE WRAPPER (THIS FIXES ALIGNMENT ACROSS ALL PAGES) */}
+        <div className="pt-24">
           {children}
         </div>
 
