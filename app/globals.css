@@ -22,7 +22,7 @@ h1, h2, h3 {
   color: var(--brand-orange);
 }
 
-/* TEXT UNDER HEADERS (NOT BUTTONS)(force white) */
+/* TEXT UNDER HEADERS (NOT "Book Service" BUTTON)(force white) */
 p {
   color: #ffffff;
 }
