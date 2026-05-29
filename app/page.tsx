@@ -38,6 +38,8 @@ export default function Home() {
     const speed = 0.08;
     const cards = Array.from(track.children) as HTMLElement[];
 
+    let rafId = 0 as number;
+
     const update = () => {
       current += (target - current) * speed;
       track.style.transform = `translateX(${-current}px)`;
@@ -75,7 +77,7 @@ export default function Home() {
         }
       }
 
-      requestAnimationFrame(update);
+      rafId = requestAnimationFrame(update);
     };
 
     update();
@@ -100,6 +102,18 @@ export default function Home() {
       isDown = false;
     };
 
+    // touch support
+    let touchStartX = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartX = e.touches[0].clientX;
+      startTarget = target;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const delta = e.touches[0].clientX - touchStartX;
+      target = startTarget - delta;
+    };
+
     window.addEventListener("wheel", handleWheel, { passive: true });
     window.addEventListener("mousedown", handleDown);
     window.addEventListener("mousemove", handleMove);
@@ -110,6 +124,9 @@ export default function Home() {
       window.removeEventListener("mousedown", handleDown);
       window.removeEventListener("mousemove", handleMove);
       window.removeEventListener("mouseup", handleUp);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -124,15 +141,9 @@ export default function Home() {
     "/Images/Builds/7.JPG",
 
     "/Images/Builds/DSC04864.JPG",
-    "/Images/Builds/DSC04865.JPG",
     "/Images/Builds/DSC04866.JPG",
     "/Images/Builds/DSC04872.JPG",
-    "/Images/Builds/DSC04878.JPG",
-    "/Images/Builds/DSC04881.JPG",
-    "/Images/Builds/DSC04889.JPG",
-    "/Images/Builds/DSC04890.JPG",
     "/Images/Builds/DSC04892.JPG",
-    "/Images/Builds/DSC04895.JPG",
     "/Images/Builds/DSC04904.JPG",
     "/Images/Builds/DSC04906.JPG",
     "/Images/Builds/DSC04912.JPG",
@@ -205,8 +216,16 @@ export default function Home() {
       </footer>
 
       {/* BACKGROUND */}
-      <div className="fixed inset-0 -z-10">
+      <div
+        className="fixed inset-0 -z-10"
+        style={
+          {
+            "--scroll": "0",
+          } as React.CSSProperties
+        }
+      >
         <div className="absolute inset-0 bg-black" />
+
         <div
           className="absolute inset-0"
           style={{
@@ -214,15 +233,11 @@ export default function Home() {
               linear-gradient(
                 135deg,
                 rgba(180,160,255,1) 0%,
-                rgba(180,160,255,1) calc(50% - var(--scroll) * 50%),
-                #000000 calc(50% + var(--scroll) * 50%),
+                rgba(180,160,255,1) calc(50% - (var(--scroll) * 50%)),
+                #000000 calc(50% + (var(--scroll) * 50%)),
                 #6b6b6b 100%
               )
             `,
           }}
         />
       </div>
-
-    </main>
-  );
-}
