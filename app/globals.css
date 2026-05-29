@@ -3,24 +3,49 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --brand-orange: #d9772a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Base theme */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-family: var(--font-serif);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-weight: 400;
+  color: var(--brand-orange);
+}
+
+/* TEXT UNDER HEADERS (force white) */
+p {
+  color: #ffffff;
+}
+
+/* LINKS (neutral default) */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* INPUTS */
+input, textarea {
+  color: var(--foreground);
+}
+
+/* PLACEHOLDERS */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(0,0,0,0.4);
+}
+
+/* all BOOK SERVICE BUTTONS (NOT NAV LINK "service") */
+a[href="/service"].book-service {
+  background: white;
+  color: rgb black (0, 0, 0) !important;
 }
