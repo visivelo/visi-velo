@@ -164,7 +164,7 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl max-w-xl text-white/90">
-          ELEVATE your cycling experience
+          (VEE-shee) ELEVATE your cycling experience
         </p>
 
         <div className="mt-10 flex gap-4">
