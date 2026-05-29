@@ -164,11 +164,11 @@ export default function Home() {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl max-w-xl text-white/90">
-          bicycle atelier focused on professional service, restoration, and refining cycling systems
+          Bicycle workshop focused on professional service, restoration, and refining cycling systems
         </p>
 
         <div className="mt-10 flex gap-4">
-          <Link href="/service" className="px-6 py-3 bg-white text-black rounded-full text-sm">
+          <Link href="/service" className="book-service px-6 py-3 rounded-full bg-white text-black text-sm">
             Book Service
           </Link>
 
