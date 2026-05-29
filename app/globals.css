@@ -46,6 +46,6 @@ textarea::placeholder {
 
 /* all BOOK SERVICE BUTTONS (NOT NAV LINK "service") */
 a[href="/service"].book-service {
-  background: white;
-  color: rgb(0, 0, 0) !important;
+  background-color: #ffffff;
+  color: #000000 !important;
 }
