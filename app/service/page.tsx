@@ -64,7 +64,7 @@ export default function ServicePage() {
           service request
         </h1>
 
-        <p className="mt-4 max-w-xl text-black/80 text-lg leading-relaxed">
+        <p className="mt-4 max-w-xl italic font-serif text-black/80 text-lg leading-relaxed">
           Schedule repair, restoration, consultation, or custom build services.
         </p>
 
