@@ -183,7 +183,7 @@ export default function Home() {
       <section className="px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl">Service & Restorations</h2>
         <p className="mt-4 max-w-2xl italic font-serif text-white/80">
-          Professional bicycle service, restoration, and rebuilds. Vintage to modern. 
+          Professional bicycle service, restoration, and rebuilds. Vintage and modern. NO RULES
         </p>
       </section>
 
