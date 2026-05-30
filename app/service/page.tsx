@@ -46,20 +46,21 @@ export default function ServicePage() {
 
   return (
     <>
-      {/* FORCE PAGE BACKGROUND (INCLUDING BEHIND NAV BAR AREA) */}
+      {/* FULL PAGE BACKGROUND (fixes white strip behind navbar) */}
       <div className="fixed inset-0 bg-[#b4a0ff] -z-10" />
 
-      <main
-        className="min-h-screen px-6 py-24 text-black"
-        style={{ fontFamily: "Cormorant Garamond, serif" }}
-      >
+      <main className="min-h-screen px-6 py-24 text-black font-serif">
+        
         {/* HOME LINK */}
-        <Link href="/" className="text-sm text-black/60 hover:text-black transition-colors">
+        <Link
+          href="/"
+          className="text-sm text-black/60 hover:text-black transition-colors"
+        >
           ← home
         </Link>
 
         {/* HEADER */}
-        <h1 className="text-5xl mt-8 text-black tracking-wide uppercase">
+        <h1 className="text-5xl mt-8 tracking-wide uppercase">
           service request
         </h1>
 
@@ -69,6 +70,7 @@ export default function ServicePage() {
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-5">
+
           <input
             type="text"
             placeholder="Name"
