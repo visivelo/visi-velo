@@ -10,10 +10,10 @@ export type BikeBuild = {
 export const builds: BikeBuild[] = [
   {
     slug: "urban-stealth-001",
-    title: "Urban Stealth 001",
-    subtitle: "Minimal city performance build",
+    title: "Duralcan",
+    subtitle: "RADICAL",
     description:
-      "A stripped-down urban bike designed for speed, silence, and control in dense city environments.",
+      "An iconic vintage M2 Duralcan Stumpjumper SRAM AXS rebuild packed with style and performance that truly breaks the mould.",
 
     heroImage: "/builds/urban-stealth/6.jpg",
 
@@ -26,10 +26,10 @@ export const builds: BikeBuild[] = [
 
   {
     slug: "gravel-phantom-002",
-    title: "Gravel Phantom 002",
+    title: "Gravel Grinder",
     subtitle: "Long distance endurance gravel platform",
     description:
-      "Built for mixed terrain endurance riding with a focus on stability and long-haul comfort.",
+      "Built for mixed terrain distance riding with a focus on stability and long-haul comfort.",
 
     heroImage: "/builds/gravel-phantom/1.jpg",
 
