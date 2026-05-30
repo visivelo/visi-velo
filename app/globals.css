@@ -49,3 +49,23 @@ a.book-service {
   background-color: #ffffff;
   color: #000000 !important;
 }
+/* UNIVERSAL INTERACTIVE HOVER COLOR */
+a:hover,
+button:hover,
+[role="button"]:hover {
+  color: var(--brand-orange);
+  transition: color 0.2s ease;
+}
+
+/* CLICKED / ACTIVE */
+a:active,
+button:active,
+[role="button"]:active {
+  color: var(--brand-orange);
+}
+
+/* BOOK SERVICE BUTTONS */
+a.book-service:hover,
+a.book-service:active {
+  color: var(--brand-orange) !important;
+}
