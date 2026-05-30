@@ -182,7 +182,7 @@ export default function Home() {
       {/* SERVICE */}
       <section className="px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl">Service & Restorations</h2>
-        <p className="mt-4 max-w-2xl text-white/80">
+        <p className="mt-4 max-w-2xl italic font-serif text-white/80">
           Professional bicycle service, restoration, and rebuilds. Vintage to modern. 
         </p>
       </section>
