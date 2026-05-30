@@ -13,7 +13,7 @@ export const builds: BikeBuild[] = [
     title: "Duralcan",
     subtitle: "RADICAL",
     description:
-      "An iconic vintage M2 Duralcan Stumpjumper SRAM AXS rebuild packed with style and performance that truly breaks the mould.",
+      "An iconic vintage M2 Duralcan Stumpy rebuilt with SRAM AXS and packed with style and performance that truly breaks the mould.",
 
     heroImage: "/builds/urban-stealth/6.jpg",
 
