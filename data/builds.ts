@@ -14,12 +14,14 @@ export const builds: BikeBuild[] = [
     subtitle: "Minimal city performance build",
     description:
       "A stripped-down urban bike designed for speed, silence, and control in dense city environments.",
-    heroImage: "/builds/urban-stealth/hero.jpg",
+
+    heroImage: "/builds/urban-stealth/6.jpg",
+
     gallery: [
       "/builds/urban-stealth/6.jpg",
       "/builds/urban-stealth/7.jpg",
-      "/builds/urban-stealth/8.jpg"
-    ]
+      "/builds/urban-stealth/8.jpg",
+    ],
   },
 
   {
@@ -28,13 +30,15 @@ export const builds: BikeBuild[] = [
     subtitle: "Long distance endurance gravel platform",
     description:
       "Built for mixed terrain endurance riding with a focus on stability and long-haul comfort.",
-    heroImage: "/builds/gravel-phantom/hero.jpg",
+
+    heroImage: "/builds/gravel-phantom/1.jpg",
+
     gallery: [
       "/builds/gravel-phantom/1.jpg",
       "/builds/gravel-phantom/2.jpg",
       "/builds/gravel-phantom/3.jpg",
       "/builds/gravel-phantom/4.jpg",
-      "/builds/gravel-phantom/5.jpg"
-    ]
-  }
+      "/builds/gravel-phantom/5.jpg",
+    ],
+  },
 ]
