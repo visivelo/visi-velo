@@ -164,7 +164,7 @@ export default function Home() {
           viši velo
         </h1>
 
-        <p className="mt-6 text-lg md:text-xl max-w-xl font-cormorant-garamond text-white/90">
+        <p className="mt-6 text-xl md:text-2xl max-w-xl italic font-serif text-white/90 tracking-wide">
           (VEE-shee) ELEVATE your cycling experience
         </p>
 
