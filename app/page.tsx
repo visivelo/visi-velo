@@ -164,7 +164,7 @@ export default function Home() {
           viši velo
         </h1>
 
-        <p className="mt-6 text-lg md:text-xl max-w-xl font-cormorant garamond text-white/90">
+        <p className="mt-6 text-lg md:text-xl max-w-xl font-cormorant-garamond text-white/90">
           (VEE-shee) ELEVATE your cycling experience
         </p>
 
@@ -173,7 +173,7 @@ export default function Home() {
             Book Service
           </Link>
 
-          <Link href="/Service Menu" className="px-6 py-3 border border-white/30 rounded-full text-sm">
+          <Link href="/Service-Menu" className="px-6 py-3 border border-white/30 rounded-full text-sm">
             Service Menu
           </Link>
         </div>
