@@ -16,6 +16,7 @@ export default function ServicePage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+
     setLoading(true);
 
     try {
@@ -44,74 +45,79 @@ export default function ServicePage() {
   }
 
   return (
-    <main
-      className="min-h-screen px-6 py-24 text-black bg-[#b4a0ff]"
-      style={{ fontFamily: "Cormorant Garamond, serif" }}
-    >
-      {/* HOME LINK */}
-      <Link href="/" className="text-sm text-black/60 hover:text-black transition-colors">
-        ← home
-      </Link>
+    <>
+      {/* FORCE PAGE BACKGROUND (INCLUDING BEHIND NAV BAR AREA) */}
+      <div className="fixed inset-0 bg-[#b4a0ff] -z-10" />
 
-      {/* HEADER */}
-      <h1 className="text-5xl mt-8 text-black tracking-wide uppercase">
-        service request
-      </h1>
+      <main
+        className="min-h-screen px-6 py-24 text-black"
+        style={{ fontFamily: "Cormorant Garamond, serif" }}
+      >
+        {/* HOME LINK */}
+        <Link href="/" className="text-sm text-black/60 hover:text-black transition-colors">
+          ← home
+        </Link>
 
-      <p className="mt-4 max-w-xl text-black/80 text-lg leading-relaxed">
-        Schedule repair, restoration, consultation, or custom build services.
-      </p>
+        {/* HEADER */}
+        <h1 className="text-5xl mt-8 text-black tracking-wide uppercase">
+          service request
+        </h1>
 
-      {/* FORM */}
-      <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-5">
-        <input
-          type="text"
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          required
-          className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
-        />
+        <p className="mt-4 max-w-xl text-black/80 text-lg leading-relaxed">
+          Schedule repair, restoration, consultation, or custom build services.
+        </p>
 
-        <input
-          type="email"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) => setForm({ ...form, email: e.target.value })}
-          required
-          className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
-        />
+        {/* FORM */}
+        <form onSubmit={handleSubmit} className="mt-12 max-w-xl space-y-5">
+          <input
+            type="text"
+            placeholder="Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            required
+            className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
+          />
 
-        <input
-          type="text"
-          placeholder="Bike / Model"
-          value={form.bike}
-          onChange={(e) => setForm({ ...form, bike: e.target.value })}
-          className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
-        />
+          <input
+            type="email"
+            placeholder="Email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            required
+            className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
+          />
 
-        <textarea
-          placeholder="Describe the issue or project"
-          value={form.message}
-          onChange={(e) => setForm({ ...form, message: e.target.value })}
-          required
-          className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 h-40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
-        />
+          <input
+            type="text"
+            placeholder="Bike / Model"
+            value={form.bike}
+            onChange={(e) => setForm({ ...form, bike: e.target.value })}
+            className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
+          />
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="px-6 py-3 rounded-full bg-black text-white hover:text-[var(--brand-orange)] transition-colors duration-200"
-        >
-          {loading ? "Sending..." : "Submit Request"}
-        </button>
+          <textarea
+            placeholder="Describe the issue or project"
+            value={form.message}
+            onChange={(e) => setForm({ ...form, message: e.target.value })}
+            required
+            className="w-full p-4 rounded-md bg-white/70 border border-black/10 text-black placeholder-black/40 h-40 focus:outline-none focus:ring-2 focus:ring-black/20 transition"
+          />
 
-        {success && (
-          <p className="text-black/70 mt-4">
-            Request submitted successfully.
-          </p>
-        )}
-      </form>
-    </main>
+          <button
+            type="submit"
+            disabled={loading}
+            className="px-6 py-3 rounded-full bg-black text-white hover:text-[#d9772a] transition-colors duration-200"
+          >
+            {loading ? "Sending..." : "Submit Request"}
+          </button>
+
+          {success && (
+            <p className="text-black/70 mt-4">
+              Request submitted successfully.
+            </p>
+          )}
+        </form>
+      </main>
+    </>
   );
 }
