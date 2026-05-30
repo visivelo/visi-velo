@@ -18,9 +18,9 @@ export const builds: BikeBuild[] = [
     heroImage: "/builds/urban-stealth/6.jpg",
 
     gallery: [
-      "/builds/urban-stealth/6.jpg",
-      "/builds/urban-stealth/7.jpg",
-      "/builds/urban-stealth/8.jpg",
+      "/builds/urban-stealth/6.JPG",
+      "/builds/urban-stealth/7.JPG",
+      "/builds/urban-stealth/8.JPG",
     ],
   },
 
@@ -34,11 +34,11 @@ export const builds: BikeBuild[] = [
     heroImage: "/builds/gravel-phantom/1.jpg",
 
     gallery: [
-      "/builds/gravel-phantom/1.jpg",
-      "/builds/gravel-phantom/2.jpg",
-      "/builds/gravel-phantom/3.jpg",
-      "/builds/gravel-phantom/4.jpg",
-      "/builds/gravel-phantom/5.jpg",
+      "/builds/gravel-phantom/1.JPG",
+      "/builds/gravel-phantom/2.JPG",
+      "/builds/gravel-phantom/3.JPG",
+      "/builds/gravel-phantom/4.JPG",
+      "/builds/gravel-phantom/5.JPG",
     ],
   },
 ]
