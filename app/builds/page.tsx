@@ -28,7 +28,7 @@ export default function BuildsPage() {
           {Builds.map((b) => (
             <Link
               key={b.slug}
-              href={`/builds/${b.slug}`}
+              href={`/Builds/${b.slug}`}
               className="group"
             >
               <div className="rounded-2xl overflow-hidden bg-black/40 border border-white/10 backdrop-blur">
