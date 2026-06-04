@@ -1,10 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
+
+  // LIGHTBOX STATE
+  const [activeImage, setActiveImage] = useState<string | null>(null);
 
   // background scroll effect
   useEffect(() => {
@@ -65,7 +68,7 @@ export default function Home() {
       const firstCard = cards[0];
 
       if (firstCard) {
-        const cardWidth = firstCard.offsetWidth + 16; // adjusted for mobile gap stability
+        const cardWidth = firstCard.offsetWidth + 16;
         const totalWidth = (cardWidth * cards.length) / 3;
 
         if (current > totalWidth * 2) {
@@ -203,8 +206,9 @@ export default function Home() {
               >
                 <img
                   src={src}
-                  className="w-full h-full object-cover rounded-xl"
+                  className="w-full h-full object-cover rounded-xl cursor-pointer"
                   draggable={false}
+                  onClick={() => setActiveImage(src)}
                 />
               </div>
             ))}
@@ -216,6 +220,19 @@ export default function Home() {
       <footer className="px-6 py-10 border-t border-white/10 text-sm text-white/60">
         viši velo · bicycle atelier
       </footer>
+
+      {/* LIGHTBOX */}
+      {activeImage && (
+        <div
+          className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
+          onClick={() => setActiveImage(null)}
+        >
+          <img
+            src={activeImage}
+            className="max-w-[90vw] max-h-[90vh] object-contain rounded-lg"
+          />
+        </div>
+      )}
 
       {/* BACKGROUND */}
       <div
