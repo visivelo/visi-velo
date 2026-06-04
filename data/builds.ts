@@ -7,7 +7,7 @@ export type BikeBuild = {
   gallery: string[]
 }
 
-export const builds: BikeBuild[] = [
+export const Builds: BikeBuild[] = [
   {
     slug: "urban-stealth-001",
     title: "Duralcan",
@@ -15,12 +15,12 @@ export const builds: BikeBuild[] = [
     description:
       "An iconic vintage M2 Duralcan Stumpy rebuilt with SRAM AXS and packed with style and performance that truly breaks the mould.",
 
-    heroImage: "/builds/urban-stealth/6.jpg",
+    heroImage: "/Builds/urban-stealth/6.jpg",
 
     gallery: [
-      "/builds/urban-stealth/6.JPG",
-      "/builds/urban-stealth/7.JPG",
-      "/builds/urban-stealth/8.JPG",
+      "/Builds/urban-stealth/6.JPG",
+      "/Builds/urban-stealth/7.JPG",
+      "/Builds/urban-stealth/8.JPG",
     ],
   },
 
@@ -31,14 +31,14 @@ export const builds: BikeBuild[] = [
     description:
       "Built for mixed terrain distance riding with a focus on stability and long-haul comfort.",
 
-    heroImage: "/builds/gravel-phantom/1.jpg",
+    heroImage: "/Builds/gravel-phantom/1.jpg",
 
     gallery: [
-      "/builds/gravel-phantom/1.JPG",
-      "/builds/gravel-phantom/2.JPG",
-      "/builds/gravel-phantom/3.JPG",
-      "/builds/gravel-phantom/4.JPG",
-      "/builds/gravel-phantom/5.JPG",
+      "/Builds/gravel-phantom/1.JPG",
+      "/Builds/gravel-phantom/2.JPG",
+      "/Builds/gravel-phantom/3.JPG",
+      "/Builds/gravel-phantom/4.JPG",
+      "/Builds/gravel-phantom/5.JPG",
     ],
   },
 ]
