@@ -65,7 +65,7 @@ export default function Home() {
       const firstCard = cards[0];
 
       if (firstCard) {
-        const cardWidth = firstCard.offsetWidth + 24;
+        const cardWidth = firstCard.offsetWidth + 16; // adjusted for mobile gap stability
         const totalWidth = (cardWidth * cards.length) / 3;
 
         if (current > totalWidth * 2) {
@@ -168,7 +168,7 @@ export default function Home() {
           (VEE-shee) ELEVATE your cycling experience
         </p>
 
-        <div className="mt-10 flex gap-4">
+        <div className="mt-10 flex gap-4 flex-wrap justify-center">
           <Link href="/service" className="book-service px-6 py-3 rounded-full bg-white text-black text-sm">
             Book Service
           </Link>
@@ -194,10 +194,13 @@ export default function Home() {
         <div className="relative overflow-hidden mt-14">
           <div
             ref={trackRef}
-            className="flex gap-6 w-max will-change-transform"
+            className="flex gap-4 md:gap-6 w-max will-change-transform"
           >
             {looped.map((src, i) => (
-              <div key={i} className="w-[320px] h-[220px] flex-shrink-0">
+              <div
+                key={i}
+                className="flex-shrink-0 w-[240px] md:w-[320px] h-[180px] md:h-[220px]"
+              >
                 <img
                   src={src}
                   className="w-full h-full object-cover rounded-xl"
