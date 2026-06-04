@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { builds } from "@/data/builds"
+import { builds } from "@/data/Builds.ts"
 
 export default function BuildsPage() {
   return (
