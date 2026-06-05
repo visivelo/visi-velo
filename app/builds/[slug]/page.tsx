@@ -1,4 +1,4 @@
-import { builds } from "@/data/builds"
+import { builds } from "@/data/Builds"
 import { notFound } from "next/navigation"
 
 export default async function BuildDetail({
