@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import type { CSSProperties } from "react";
 
 export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -160,7 +161,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-[200vh] text-white overflow-x-hidden">
-
       {/* HERO */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-32 pt-40">
         <h1 className="text-6xl md:text-7xl tracking-widest text-[#d9772a]">
@@ -172,11 +172,17 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex gap-4 flex-wrap justify-center">
-          <Link href="/service" className="book-service px-6 py-3 rounded-full bg-white text-black text-sm">
+          <Link
+            href="/service"
+            className="book-service px-6 py-3 rounded-full bg-white text-black text-sm"
+          >
             Book Service
           </Link>
 
-          <Link href="/service-menu" className="px-6 py-3 border border-white/30 rounded-full text-sm">
+          <Link
+            href="/service-menu"
+            className="px-6 py-3 border border-white/30 rounded-full text-sm"
+          >
             Service Menu
           </Link>
         </div>
@@ -186,7 +192,8 @@ export default function Home() {
       <section className="px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl">Service & Restorations</h2>
         <p className="mt-4 max-w-2xl italic font-serif text-white/80">
-          Professional bicycle service, restoration, and rebuilds. Vintage and modern. NO RULES
+          Professional bicycle service, restoration, and rebuilds. Vintage and
+          modern. NO RULES
         </p>
       </section>
 
@@ -237,7 +244,7 @@ export default function Home() {
       {/* BACKGROUND */}
       <div
         className="fixed inset-0 -z-10"
-        style={{ "--scroll": "0" } as React.CSSProperties}
+        style={{ "--scroll": "0" } as CSSProperties}
       >
         <div className="absolute inset-0 bg-black" />
 

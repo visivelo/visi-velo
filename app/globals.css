@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -18,7 +20,7 @@ body {
 
 /* Headings */
 h1, h2, h3 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   text-transform: uppercase;
   letter-spacing: 0.09em;
   font-weight: 500;
@@ -37,21 +39,23 @@ a {
 }
 
 /* INPUTS */
-input, textarea {
+input,
+textarea {
   color: var(--foreground);
 }
 
 /* PLACEHOLDERS */
 input::placeholder,
 textarea::placeholder {
-  color: rgba(0,0,0,0.4);
+  color: rgba(0, 0, 0, 0.4);
 }
 
-/* all "BOOK SERVICE" BUTTONS */
+/* ALL "BOOK SERVICE" BUTTONS */
 a.book-service {
   background-color: #ffffff;
   color: #000000 !important;
 }
+
 /* UNIVERSAL INTERACTIVE HOVER COLOR */
 a:hover,
 button:hover,
@@ -67,7 +71,7 @@ button:active,
   color: var(--brand-orange);
 }
 
-/* BOOK SERVICE BUTTONS */
+/* BOOK SERVICE BUTTONS (override hover safely) */
 a.book-service:hover,
 a.book-service:active {
   color: var(--brand-orange) !important;

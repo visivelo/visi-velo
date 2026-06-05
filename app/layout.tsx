@@ -1,15 +1,15 @@
 import "./globals.css";
 import Link from "next/link";
+import type { ReactNode } from "react";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
 }) {
   return (
     <html lang="en">
       <body>
-
         {/* GLOBAL NAV (APPLE/RAPHA STYLE FIXED FRAME) */}
         <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -23,13 +23,13 @@ export default function RootLayout({
 
             <nav className="hidden md:flex gap-10 text-sm text-white/70">
               <Link href="/service">Service</Link>
-              <Link href="/builds">Builds</Link>
+              <Link href="/Builds">Builds</Link>
               <Link href="/shop">Shop</Link>
             </nav>
 
             <Link
               href="/service"
-              className="rounded-full bg-white px-5 py-2 text-sm font-cormorant garamond text-black"
+              className="rounded-full bg-white px-5 py-2 text-sm font-cormorant-garamond text-black"
             >
               Book Service
             </Link>
@@ -41,7 +41,6 @@ export default function RootLayout({
         <main className="pt-24">
           {children}
         </main>
-
       </body>
     </html>
   );
