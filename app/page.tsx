@@ -28,25 +28,23 @@ export default function Home() {
 
   const looped = [...images, ...images, ...images];
 
+  /* ===== BACKGROUND SCROLL TRANSITION ===== */
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
     const onScroll = () => {
-      const scrollY = window.scrollY;
-
       if (!bg) return;
+      const y = window.scrollY;
 
-      if (scrollY > 200) {
-        bg.classList.add("expand");
-      } else {
-        bg.classList.remove("expand");
-      }
+      if (y > 250) bg.classList.add("expand");
+      else bg.classList.remove("expand");
     };
 
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  /* ===== CAROUSEL ===== */
   useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
@@ -79,9 +77,7 @@ export default function Home() {
 
     animate();
 
-    const wheel = (e: WheelEvent) => {
-      target += e.deltaY;
-    };
+    const wheel = (e: WheelEvent) => (target += e.deltaY);
 
     const down = (e: MouseEvent) => {
       isDown = true;
@@ -124,8 +120,9 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="text-white min-h-screen overflow-hidden">
-      <section className="text-center py-32">
+    <main className="relative min-h-screen text-white overflow-hidden">
+      {/* HERO MUST BE TRANSPARENT */}
+      <section className="text-center py-32 relative z-10">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
           viši velo
         </h1>
@@ -144,7 +141,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-20 px-6 border-t border-white/10">
+      <section className="py-20 px-6 border-t border-white/10 relative z-10">
         <h2 className="text-3xl">Build Archive</h2>
 
         <div className="mt-10 overflow-hidden">
@@ -164,7 +161,7 @@ export default function Home() {
 
       {active && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center"
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
           onClick={() => setActive(null)}
         >
           <img src={active} className="max-w-[90vw] max-h-[90vh]" />

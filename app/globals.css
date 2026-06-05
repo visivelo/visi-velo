@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== BASE RESET ===== */
+/* ===== BASE ===== */
 html,
 body {
   margin: 0;
@@ -13,7 +13,6 @@ body {
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
-/* Ensure full bleed background */
 body {
   min-height: 100vh;
   overflow-x: hidden;
@@ -39,10 +38,11 @@ a {
   text-decoration: none;
 }
 
-/* ===== LAVENDER + BLACK SYSTEM ===== */
+/* ===== COLORS ===== */
 :root {
   --lavender: #b9a7ff;
   --black: #000000;
+  --orange: #d9772a;
 }
 
 /* ===== GLOBAL BACKGROUND LAYER ===== */
@@ -50,14 +50,16 @@ a {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background: #000;
+  pointer-events: none;
 }
 
-/* diagonal split base */
+/* animated gradient layer */
 .app-bg::before {
   content: "";
   position: absolute;
   inset: 0;
+
+  /* diagonal gradient that we will SHIFT via CSS variable */
   background: linear-gradient(
     135deg,
     var(--black) 0%,
@@ -65,19 +67,40 @@ a {
     var(--lavender) 50%,
     var(--lavender) 100%
   );
+
   transform: translateZ(0);
-  transition: all 0.6s ease;
+  will-change: transform, filter;
 }
 
-/* expanded state (becomes lavender) */
-.app-bg.expand::before {
-  background: var(--lavender);
+/* second subtle depth layer */
+.app-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at var(--x, 50%) var(--y, 30%),
+    rgba(185, 167, 255, 0.25),
+    transparent 60%
+  );
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
-/* ===== FIX ANY WHITE/UNWANTED BACKGROUNDS ===== */
-header,
-main,
-section,
-div {
-  background-color: transparent;
+/* ===== HOVER SYSTEM ===== */
+a,
+button,
+[role="button"] {
+  transition: color 0.2s ease;
+}
+
+a:hover,
+button:hover,
+[role="button"]:hover {
+  color: var(--orange);
+}
+
+.text-white:hover,
+.text-white\/70:hover,
+.text-white\/80:hover {
+  color: var(--orange) !important;
 }
