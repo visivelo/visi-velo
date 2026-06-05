@@ -9,9 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        {/* GLOBAL NAV (APPLE/RAPHA STYLE FIXED FRAME) */}
-        <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-md">
+      <body className="bg-black text-white antialiased">
+        {/* GLOBAL NAV */}
+        <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
             <Link
@@ -29,7 +29,7 @@ export default function RootLayout({
 
             <Link
               href="/service"
-              className="rounded-full bg-white px-5 py-2 text-sm font-cormorant-garamond text-black"
+              className="rounded-full bg-white px-5 py-2 text-sm text-black"
             >
               Book Service
             </Link>
@@ -37,8 +37,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        {/* PAGE FRAME */}
-        <main className="pt-24">
+        <main className="pt-24 min-h-screen">
           {children}
         </main>
       </body>
