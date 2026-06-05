@@ -4,19 +4,27 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #111111;
   --brand-orange: #d9772a;
 
   --font-body: Inter, Arial, Helvetica, sans-serif;
   --font-display: "Cormorant Garamond", serif;
 }
 
-body {
+/* HARD RESET CONSISTENCY LAYER */
+html, body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-body);
+  margin: 0;
+  padding: 0;
 }
 
+/* TEXT */
+p {
+  color: rgba(0, 0, 0, 0.75);
+}
+
+/* HEADINGS */
 h1, h2, h3 {
   font-family: var(--font-display);
   text-transform: uppercase;
@@ -25,44 +33,38 @@ h1, h2, h3 {
   color: var(--brand-orange);
 }
 
-p {
-  color: rgba(0, 0, 0, 0.75);
-}
-
+/* LINKS */
 a {
   color: inherit;
   text-decoration: none;
 }
 
+/* INPUTS */
 input,
 textarea {
   color: var(--foreground);
 }
 
+/* PLACEHOLDERS */
 input::placeholder,
 textarea::placeholder {
   color: rgba(0, 0, 0, 0.4);
 }
 
+/* BUTTON OVERRIDE */
 a.book-service {
-  background-color: #ffffff;
-  color: #000000 !important;
-}
-
-a:hover,
-button:hover,
-[role="button"]:hover {
-  color: var(--brand-orange);
-  transition: color 0.2s ease;
-}
-
-a:active,
-button:active,
-[role="button"]:active {
-  color: var(--brand-orange);
+  background: #fff;
+  color: #000 !important;
 }
 
 a.book-service:hover,
 a.book-service:active {
   color: var(--brand-orange) !important;
+}
+
+/* HOVER STATES */
+a:hover,
+button:hover,
+[role="button"]:hover {
+  color: var(--brand-orange);
 }
