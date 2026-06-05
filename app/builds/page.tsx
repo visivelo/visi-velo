@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Builds } from "@/data/Builds"
+import { builds } from "@/data/builds"
 
 export default function BuildsPage() {
   return (
@@ -21,14 +21,14 @@ export default function BuildsPage() {
       <div className="relative z-10 px-8 py-20">
 
         <h1 className="text-white text-5xl md:text-7xl font-serif text-center mb-16">
-          Builds
+          builds
         </h1>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {Builds.map((b) => (
+          {builds.map((b) => (
             <Link
               key={b.slug}
-              href={`/Builds/${b.slug}`}
+              href={`/builds/${b.slug}`}
               className="group"
             >
               <div className="rounded-2xl overflow-hidden bg-black/40 border border-white/10 backdrop-blur">
