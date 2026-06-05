@@ -29,6 +29,25 @@ export default function Home() {
   const looped = [...images, ...images, ...images];
 
   useEffect(() => {
+    const bg = document.getElementById("app-bg");
+
+    const onScroll = () => {
+      const scrollY = window.scrollY;
+
+      if (!bg) return;
+
+      if (scrollY > 200) {
+        bg.classList.add("expand");
+      } else {
+        bg.classList.remove("expand");
+      }
+    };
+
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
     const el = trackRef.current;
     if (!el) return;
 
@@ -105,7 +124,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="bg-black text-white min-h-screen overflow-hidden">
+    <main className="text-white min-h-screen overflow-hidden">
       <section className="text-center py-32">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
           viši velo
@@ -131,10 +150,7 @@ export default function Home() {
         <div className="mt-10 overflow-hidden">
           <div ref={trackRef} className="flex gap-4 w-max">
             {looped.map((src, i) => (
-              <div
-                key={i}
-                className="w-[260px] h-[180px] flex-shrink-0"
-              >
+              <div key={i} className="w-[260px] h-[180px] flex-shrink-0">
                 <img
                   src={src}
                   className="w-full h-full object-cover rounded-xl cursor-pointer"
