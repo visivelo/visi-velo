@@ -2,23 +2,32 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ===== BASE ===== */
+/* =========================
+   BASE RESET
+========================= */
+
 html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background: #000;
+  min-height: 100%;
+  background: transparent;
   color: #fff;
   font-family: Inter, Arial, Helvetica, sans-serif;
-}
-
-body {
-  min-height: 100vh;
   overflow-x: hidden;
 }
 
-/* ===== TYPOGRAPHY ===== */
+/* Ensure app fills full viewport */
+#__next,
+main {
+  min-height: 100vh;
+}
+
+/* =========================
+   TYPOGRAPHY
+========================= */
+
 h1,
 h2,
 h3 {
@@ -38,28 +47,33 @@ a {
   text-decoration: none;
 }
 
-/* ===== COLORS ===== */
+/* =========================
+   THEME COLORS
+========================= */
+
 :root {
   --lavender: #b9a7ff;
   --black: #000000;
   --orange: #d9772a;
 }
 
-/* ===== GLOBAL BACKGROUND LAYER ===== */
+/* =========================
+   GLOBAL BACKGROUND SYSTEM
+========================= */
+
 .app-bg {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -10;
   pointer-events: none;
 }
 
-/* animated gradient layer */
+/* Base diagonal split */
 .app-bg::before {
   content: "";
   position: absolute;
   inset: 0;
 
-  /* diagonal gradient that we will SHIFT via CSS variable */
   background: linear-gradient(
     135deg,
     var(--black) 0%,
@@ -68,39 +82,72 @@ a {
     var(--lavender) 100%
   );
 
+  will-change: transform;
   transform: translateZ(0);
-  will-change: transform, filter;
 }
 
-/* second subtle depth layer */
+/* soft glow layer */
 .app-bg::after {
   content: "";
   position: absolute;
   inset: 0;
+
   background: radial-gradient(
     circle at var(--x, 50%) var(--y, 30%),
-    rgba(185, 167, 255, 0.25),
+    rgba(185, 167, 255, 0.22),
     transparent 60%
   );
+
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 
-/* ===== HOVER SYSTEM ===== */
+/* =========================
+   HOVER SYSTEM (GLOBAL)
+========================= */
+
 a,
 button,
 [role="button"] {
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
 
+/* ONLY hovered element changes */
 a:hover,
 button:hover,
 [role="button"]:hover {
   color: var(--orange);
 }
 
+/* override Tailwind text utilities on hover */
 .text-white:hover,
 .text-white\/70:hover,
 .text-white\/80:hover {
   color: var(--orange) !important;
+}
+
+/* =========================
+   NAV SAFETY (prevents group hover bleed)
+========================= */
+
+nav a {
+  transition: color 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--orange);
+}
+
+/* =========================
+   BACKGROUND SAFETY FIX
+   (prevents black top “dead zone”)
+========================= */
+
+body {
+  background: transparent !important;
+}
+
+main {
+  position: relative;
+  z-index: 1;
 }
