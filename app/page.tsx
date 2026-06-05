@@ -6,16 +6,12 @@ import type { CSSProperties } from "react";
 
 export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
-
-  // LIGHTBOX STATE
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
-  // background scroll effect
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const max = 800;
-
       const progress = Math.min(scrollY / max, 1);
 
       document.documentElement.style.setProperty(
@@ -25,12 +21,11 @@ export default function Home() {
     };
 
     handleScroll();
-
     window.addEventListener("scroll", handleScroll, { passive: true });
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // infinite carousel
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
@@ -62,7 +57,7 @@ export default function Home() {
         const scale = 0.85 + (1 - normalized) * 0.35;
         const opacity = 0.4 + (1 - normalized) * 0.6;
 
-        card.style.transform = `scale(${scale})`;
+        card.style.transform = `translateZ(0) scale(${scale})`;
         card.style.opacity = String(opacity);
       });
 
@@ -161,7 +156,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-[200vh] text-white overflow-x-hidden">
-      {/* HERO */}
       <section className="flex flex-col items-center justify-center text-center px-6 py-32 pt-40">
         <h1 className="text-6xl md:text-7xl tracking-widest text-[#d9772a]">
           viši velo
@@ -188,16 +182,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SERVICE */}
       <section className="px-6 py-24 border-t border-white/10">
         <h2 className="text-3xl">Service & Restorations</h2>
         <p className="mt-4 max-w-2xl italic font-serif text-white/80">
-          Professional bicycle service, restoration, and rebuilds. Vintage and
-          modern. NO RULES
+          Professional bicycle service, restoration, and rebuilds. Vintage and modern. NO RULES
         </p>
       </section>
 
-      {/* CAROUSEL */}
       <section className="px-6 py-24 border-t border-white/10 overflow-hidden">
         <h2 className="text-3xl">Build Archive</h2>
 
@@ -223,12 +214,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FOOTER */}
       <footer className="px-6 py-10 border-t border-white/10 text-sm text-white/60">
         viši velo · bicycle atelier
       </footer>
 
-      {/* LIGHTBOX */}
       {activeImage && (
         <div
           className="fixed inset-0 z-50 bg-black/90 flex items-center justify-center"
@@ -241,13 +230,11 @@ export default function Home() {
         </div>
       )}
 
-      {/* BACKGROUND */}
       <div
         className="fixed inset-0 -z-10"
         style={{ "--scroll": "0" } as CSSProperties}
       >
         <div className="absolute inset-0 bg-black" />
-
         <div
           className="absolute inset-0"
           style={{

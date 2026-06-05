@@ -9,11 +9,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-white text-black antialiased">
-        {/* GLOBAL NAV */}
+      <body className="antialiased">
         <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-
             <Link
               href="/"
               className="text-sm tracking-[0.35em] uppercase text-white"
@@ -33,11 +31,10 @@ export default function RootLayout({
             >
               Book Service
             </Link>
-
           </div>
         </header>
 
-        <main className="pt-24 min-h-screen">
+        <main className="pt-24">
           {children}
         </main>
       </body>
