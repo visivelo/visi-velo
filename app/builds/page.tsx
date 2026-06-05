@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { builds } from "@/data/builds"
 
-export default function BuildsPage() {
+export default function buildsPage() {
   return (
     <div className="min-h-screen relative overflow-hidden">
 
