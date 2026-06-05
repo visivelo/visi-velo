@@ -9,17 +9,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="bg-black text-white antialiased">
-        <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
+      <body>
+        <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/70 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-            <Link
-              href="/"
-              className="text-sm tracking-[0.35em] uppercase text-white"
-            >
+            <Link href="/" className="tracking-[0.35em] uppercase text-white text-sm">
               viši velo
             </Link>
 
-            <nav className="hidden md:flex gap-10 text-sm text-white/70">
+            <nav className="hidden md:flex gap-10 text-white/70 text-sm">
               <Link href="/service">Service</Link>
               <Link href="/Builds">Builds</Link>
               <Link href="/shop">Shop</Link>
@@ -27,7 +24,7 @@ export default function RootLayout({
 
             <Link
               href="/service"
-              className="rounded-full bg-white px-5 py-2 text-sm text-black"
+              className="bg-white text-black px-5 py-2 rounded-full text-sm"
             >
               Book Service
             </Link>

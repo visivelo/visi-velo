@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --brand-orange: #d9772a;
-}
-
 html, body {
   margin: 0;
   padding: 0;
@@ -14,44 +10,19 @@ html, body {
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
 
-/* headings */
 h1, h2, h3 {
-  color: var(--brand-orange);
   font-family: "Cormorant Garamond", serif;
+  color: #d9772a;
   text-transform: uppercase;
   letter-spacing: 0.09em;
   font-weight: 500;
 }
 
-/* links */
+p {
+  color: rgba(255,255,255,0.8);
+}
+
 a {
   color: inherit;
   text-decoration: none;
-}
-
-/* paragraphs ONLY if not overridden */
-p {
-  color: rgba(255, 255, 255, 0.8);
-}
-
-/* inputs */
-input,
-textarea {
-  color: #111;
-}
-
-/* placeholder */
-input::placeholder,
-textarea::placeholder {
-  color: rgba(0, 0, 0, 0.4);
-}
-
-/* buttons */
-a.book-service {
-  background: #fff;
-  color: #000 !important;
-}
-
-a.book-service:hover {
-  color: var(--brand-orange) !important;
 }
