@@ -11,14 +11,12 @@
   --font-display: "Cormorant Garamond", serif;
 }
 
-/* Base theme */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
 }
 
-/* Headings */
 h1, h2, h3 {
   font-family: var(--font-display);
   text-transform: uppercase;
@@ -27,36 +25,30 @@ h1, h2, h3 {
   color: var(--brand-orange);
 }
 
-/* TEXT UNDER HEADERS */
 p {
   color: rgba(0, 0, 0, 0.75);
 }
 
-/* LINKS (neutral default) */
 a {
   color: inherit;
   text-decoration: none;
 }
 
-/* INPUTS */
 input,
 textarea {
   color: var(--foreground);
 }
 
-/* PLACEHOLDERS */
 input::placeholder,
 textarea::placeholder {
   color: rgba(0, 0, 0, 0.4);
 }
 
-/* ALL "BOOK SERVICE" BUTTONS */
 a.book-service {
   background-color: #ffffff;
   color: #000000 !important;
 }
 
-/* UNIVERSAL INTERACTIVE HOVER COLOR */
 a:hover,
 button:hover,
 [role="button"]:hover {
@@ -64,14 +56,12 @@ button:hover,
   transition: color 0.2s ease;
 }
 
-/* CLICKED / ACTIVE */
 a:active,
 button:active,
 [role="button"]:active {
   color: var(--brand-orange);
 }
 
-/* BOOK SERVICE BUTTONS (override hover safely) */
 a.book-service:hover,
 a.book-service:active {
   color: var(--brand-orange) !important;
