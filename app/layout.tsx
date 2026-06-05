@@ -9,7 +9,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="antialiased">
+      <body className="bg-black text-white antialiased">
         <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/60 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
             <Link
@@ -34,9 +34,7 @@ export default function RootLayout({
           </div>
         </header>
 
-        <main className="pt-24">
-          {children}
-        </main>
+        <main className="pt-24">{children}</main>
       </body>
     </html>
   );

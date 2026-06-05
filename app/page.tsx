@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import type { CSSProperties } from "react";
 
 export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
@@ -13,7 +12,6 @@ export default function Home() {
       const scrollY = window.scrollY;
       const max = 800;
       const progress = Math.min(scrollY / max, 1);
-
       document.documentElement.style.setProperty(
         "--scroll",
         progress.toString()
@@ -57,7 +55,7 @@ export default function Home() {
         const scale = 0.85 + (1 - normalized) * 0.35;
         const opacity = 0.4 + (1 - normalized) * 0.6;
 
-        card.style.transform = `translateZ(0) scale(${scale})`;
+        card.style.transform = `scale(${scale})`;
         card.style.opacity = String(opacity);
       });
 
@@ -161,7 +159,7 @@ export default function Home() {
           viši velo
         </h1>
 
-        <p className="mt-6 text-xl md:text-2xl max-w-xl italic font-serif text-white/90 tracking-wide">
+        <p className="mt-6 text-xl md:text-2xl max-w-xl italic font-serif text-white/90">
           (VEE-shee) ELEVATE your cycling experience
         </p>
 
@@ -229,27 +227,6 @@ export default function Home() {
           />
         </div>
       )}
-
-      <div
-        className="fixed inset-0 -z-10"
-        style={{ "--scroll": "0" } as CSSProperties}
-      >
-        <div className="absolute inset-0 bg-black" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              linear-gradient(
-                135deg,
-                rgba(180,160,255,1) 0%,
-                rgba(180,160,255,1) calc(50% - (var(--scroll) * 50%)),
-                #000000 calc(50% + (var(--scroll) * 50%)),
-                #6b6b6b 100%
-              )
-            `,
-          }}
-        />
-      </div>
     </main>
   );
 }
