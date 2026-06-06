@@ -37,6 +37,7 @@ h3 {
   font-weight: 500;
 }
 
+/* BODY TEXT (site-wide serif) */
 p,
 span,
 li,
@@ -98,14 +99,15 @@ a {
     transparent 60%
   );
   mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 /* =========================
-   NAV
+   NAV LOGO
 ========================= */
 
 .nav-logo {
-  color: #fff !important;
+  color: #ffffff !important;
   transition: color 0.2s ease;
 }
 
@@ -113,59 +115,81 @@ a {
   color: var(--orange) !important;
 }
 
+/* =========================
+   NAV LINKS
+========================= */
+
+nav a {
+  transition: color 0.2s ease;
+}
+
 nav a:hover {
   color: var(--orange);
 }
 
 /* =========================
-   SERVICE MENU (SAFE VERSION)
+   BUTTON SYSTEM
+========================= */
+
+button,
+[role="button"],
+a[class*="bg-white"],
+a[class*="bg-black"] {
+  color: #000000;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+button:hover,
+[role="button"]:hover,
+a[class*="bg-white"]:hover,
+a[class*="bg-black"]:hover {
+  color: var(--orange);
+}
+
+/* =========================
+   IMAGE INTERACTIONS
+========================= */
+
+img {
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.group:hover img {
+  transform: scale(1.08);
+}
+
+/* =========================
+   SERVICE MENU (FIXED COLOR SYSTEM)
 ========================= */
 
 .service-menu {
-  --service-progress: 0;
+  position: relative;
 }
 
-/* ALWAYS VISIBLE (fixes disappearing text issue) */
+/* base pricing rows */
 .price-row {
   display: flex;
   justify-content: space-between;
   gap: 24px;
+  font-family: "Cormorant Garamond", serif;
+  transition: color 0.35s ease;
 }
 
-/* DEFAULT STATE = PURE BLACK */
+/* default state */
 .svc-name,
 .svc-price {
   color: #000000;
-  transition: color 0.4s ease;
+  transition: color 0.35s ease;
 }
 
-/* SCROLL-BASED SHIFT (safe + supported) */
+/* controlled orange lift (no global tint bleed) */
 .service-menu .svc-name {
-  color: #000000;
+  color: color-mix(in srgb, #000000 75%, var(--orange) 25%);
 }
 
 .service-menu .svc-price {
-  color: #000000;
-}
-
-/* FINAL SAFE LAYER: controlled orange tint without breaking visibility */
-.service-menu .svc-price {
-  color: #000;
-}
-
-.service-menu .svc-price {
-  color: #000;
-}
-
-/* fallback working blend (safe browsers only) */
-@supports (color: color-mix(in srgb, black, white)) {
-  .service-menu .svc-name {
-    color: color-mix(in srgb, #000 80%, var(--orange));
-  }
-
-  .service-menu .svc-price {
-    color: color-mix(in srgb, #000 60%, var(--orange));
-  }
+  color: color-mix(in srgb, #000000 45%, var(--orange) 55%);
 }
 
 /* =========================
