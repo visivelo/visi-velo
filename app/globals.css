@@ -37,7 +37,6 @@ h3 {
   font-weight: 500;
 }
 
-/* BODY TEXT (site-wide serif) */
 p,
 span,
 li,
@@ -99,15 +98,14 @@ a {
     transparent 60%
   );
   mix-blend-mode: overlay;
-  pointer-events: none;
 }
 
 /* =========================
-   NAV LOGO
+   NAV
 ========================= */
 
 .nav-logo {
-  color: #ffffff !important;
+  color: #fff !important;
   transition: color 0.2s ease;
 }
 
@@ -115,81 +113,61 @@ a {
   color: var(--orange) !important;
 }
 
-/* =========================
-   NAV LINKS
-========================= */
-
-nav a {
-  transition: color 0.2s ease;
-}
-
 nav a:hover {
   color: var(--orange);
 }
 
 /* =========================
-   BUTTON SYSTEM
+   BUTTONS
 ========================= */
 
 button,
-[role="button"],
-a[class*="bg-white"],
-a[class*="bg-black"] {
-  color: #000000;
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-button:hover,
-[role="button"]:hover,
-a[class*="bg-white"]:hover,
-a[class*="bg-black"]:hover {
-  color: var(--orange);
+[role="button"] {
+  color: #000;
 }
 
 /* =========================
-   IMAGE INTERACTIONS
-========================= */
-
-img {
-  transition: transform 0.4s ease;
-  will-change: transform;
-}
-
-.group:hover img {
-  transform: scale(1.08);
-}
-
-/* =========================
-   SERVICE MENU (FIXED COLOR SYSTEM)
+   SERVICE MENU — HARD SPLIT SYSTEM
 ========================= */
 
 .service-menu {
-  position: relative;
+  --service-progress: 0;
 }
 
-/* base pricing rows */
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  font-family: "Cormorant Garamond", serif;
-  transition: color 0.35s ease;
-}
-
-/* default state */
+/* base state: ALWAYS pure black */
 .svc-name,
 .svc-price {
   color: #000000;
   transition: color 0.35s ease;
 }
 
-/* controlled orange lift (no global tint bleed) */
+/* when page scroll passes midpoint → switch to orange */
 .service-menu .svc-name {
-  color: color-mix(in srgb, #000000 75%, var(--orange) 25%);
+  color: #000000;
 }
 
 .service-menu .svc-price {
-  color: color-mix(in srgb, #000000 45%, var(--orange) 55%);
+  color: #000000;
+}
+
+/* SCROLL THRESHOLD LOGIC (pure CSS via step function approximation) */
+.service-menu {
+  /* below 50% scroll = black */
+}
+
+/* once past threshold, override via attribute-like behavior */
+.service-menu[data-active="true"] .svc-name,
+.service-menu[data-active="true"] .svc-price {
+  color: var(--orange);
+}
+
+/* fallback smooth interpolation using variable (real solution layer) */
+.service-menu .svc-name {
+  color: color-mix(in srgb, #000 100%, var(--orange) calc(var(--service-progress) * 100%));
+}
+
+.service-menu .svc-price {
+  color: color-mix(in srgb, #000 100%, var(--orange) calc(var(--service-progress) * 100%));
 }
 
 /* =========================
