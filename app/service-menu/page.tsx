@@ -10,11 +10,8 @@ export default function ServiceMenuPage() {
   }, []);
 
   return (
-    <main className="min-h-screen px-6 py-24 relative z-10 service-menu">
-      <Link
-        href="/"
-        className="text-sm text-[#d9772a] hover:opacity-70 transition"
-      >
+    <main className="service-menu min-h-screen px-6 py-24 relative z-10 text-[#d9772a]">
+      <Link href="/" className="text-sm text-[#d9772a] hover:opacity-70 transition">
         ← home
       </Link>
 
@@ -32,80 +29,80 @@ export default function ServiceMenuPage() {
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Basic Repairs</h2>
 
           <div className="space-y-2">
-            <div className="price-row"><span>Flat Fix, Tube/Tire Install</span><span>$20</span></div>
-            <div className="price-row"><span>Flat Fix, Tube/Tire Install *Labor Intensive*</span><span>$40</span></div>
-            <div className="price-row"><span>Wheel True</span><span>$25</span></div>
-            <div className="price-row"><span>Hub Adjustment, Lubrication</span><span>$20</span></div>
-            <div className="price-row"><span>Hub Overhaul</span><span>$50</span></div>
+            <div className="price-row"><span className="svc-name">Flat Fix, Tube/Tire Install</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Flat Fix, Tube/Tire Install *Labor Intensive*</span><span className="svc-price">$40</span></div>
+            <div className="price-row"><span className="svc-name">Wheel True</span><span className="svc-price">$25</span></div>
+            <div className="price-row"><span className="svc-name">Hub Adjustment, Lubrication</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Hub Overhaul</span><span className="svc-price">$50</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Drivetrain & Mechanical</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Bottom Bracket Overhaul / Replacement</span><span>$35</span></div>
-            <div className="price-row"><span>Headset Overhaul / Bearing Install</span><span>$40</span></div>
-            <div className="price-row"><span>Derailleur Install</span><span>$30</span></div>
-            <div className="price-row"><span>Chain Install</span><span>$15</span></div>
-            <div className="price-row"><span>Cassette / Freewheel Install</span><span>$25</span></div>
-            <div className="price-row"><span>Chainring Install</span><span>$35</span></div>
-            <div className="price-row"><span>Crankset Install</span><span>$50</span></div>
-            <div className="price-row"><span>Drivetrain Deep Clean</span><span>$50</span></div>
+            <div className="price-row"><span className="svc-name">Bottom Bracket Overhaul / Replacement</span><span className="svc-price">$35</span></div>
+            <div className="price-row"><span className="svc-name">Headset Overhaul / Bearing Install</span><span className="svc-price">$40</span></div>
+            <div className="price-row"><span className="svc-name">Derailleur Install</span><span className="svc-price">$30</span></div>
+            <div className="price-row"><span className="svc-name">Chain Install</span><span className="svc-price">$15</span></div>
+            <div className="price-row"><span className="svc-name">Cassette / Freewheel Install</span><span className="svc-price">$25</span></div>
+            <div className="price-row"><span className="svc-name">Chainring Install</span><span className="svc-price">$35</span></div>
+            <div className="price-row"><span className="svc-name">Crankset Install</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Drivetrain Deep Clean</span><span className="svc-price">$50</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Cockpit & Controls</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Stem Install</span><span>$15</span></div>
-            <div className="price-row"><span>Handlebar Install</span><span>$30</span></div>
-            <div className="price-row"><span>Handlebar Install *Aero / Labor Intensive*</span><span>$75</span></div>
-            <div className="price-row"><span>Install Shifter / Brake Lever</span><span>$30</span></div>
-            <div className="price-row"><span>Install Shifter / Brake Lever *Hydraulic / Internal / Electronic*</span><span>$50</span></div>
-            <div className="price-row"><span>Wrap Handlebars</span><span>$25</span></div>
+            <div className="price-row"><span className="svc-name">Stem Install</span><span className="svc-price">$15</span></div>
+            <div className="price-row"><span className="svc-name">Handlebar Install</span><span className="svc-price">$30</span></div>
+            <div className="price-row"><span className="svc-name">Handlebar Install *Aero / Labor Intensive*</span><span className="svc-price">$75</span></div>
+            <div className="price-row"><span className="svc-name">Install Shifter / Brake Lever</span><span className="svc-price">$30</span></div>
+            <div className="price-row"><span className="svc-name">Install Shifter / Brake Lever *Hydraulic / Internal / Electronic*</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Wrap Handlebars</span><span className="svc-price">$25</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Brakes</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Brake Hose Replacement</span><span>$50</span></div>
-            <div className="price-row"><span>Install Brake Caliper (Mechanical)</span><span>$30</span></div>
-            <div className="price-row"><span>Install Brake Caliper (Hydraulic)</span><span>$50</span></div>
-            <div className="price-row"><span>Brake Pad Install</span><span>$20</span></div>
-            <div className="price-row"><span>Brake Bleed</span><span>$50</span></div>
-            <div className="price-row"><span>Rim Brake Adjustment</span><span>$20</span></div>
-            <div className="price-row"><span>Disc Brake Adjustment</span><span>$20</span></div>
-            <div className="price-row"><span>Re-Surface Brake Pads / Braking Surface (+Clean)</span><span>$30</span></div>
+            <div className="price-row"><span className="svc-name">Brake Hose Replacement</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Install Brake Caliper (Mechanical)</span><span className="svc-price">$30</span></div>
+            <div className="price-row"><span className="svc-name">Install Brake Caliper (Hydraulic)</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Brake Pad Install</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Brake Bleed</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Rim Brake Adjustment</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Disc Brake Adjustment</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Re-Surface Brake Pads / Braking Surface (+Clean)</span><span className="svc-price">$30</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Adjustments</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Derailleur Adjustment</span><span>$20</span></div>
-            <div className="price-row"><span>Derailleur Hanger Alignment / Replacement</span><span>$20</span></div>
+            <div className="price-row"><span className="svc-name">Derailleur Adjustment</span><span className="svc-price">$20</span></div>
+            <div className="price-row"><span className="svc-name">Derailleur Hanger Alignment / Replacement</span><span className="svc-price">$20</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Cleaning & Accessories</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Fender Install</span><span>$40</span></div>
-            <div className="price-row"><span>Fender Install *Labor Intensive*</span><span>$100</span></div>
-            <div className="price-row"><span>Rack Install</span><span>$40</span></div>
-            <div className="price-row"><span>Wire Light / Accessory</span><span>$75</span></div>
-            <div className="price-row"><span>Drivetrain Deep Clean</span><span>$50</span></div>
-            <div className="price-row"><span>Full Bike Deep Clean</span><span>$125</span></div>
+            <div className="price-row"><span className="svc-name">Fender Install</span><span className="svc-price">$40</span></div>
+            <div className="price-row"><span className="svc-name">Fender Install *Labor Intensive*</span><span className="svc-price">$100</span></div>
+            <div className="price-row"><span className="svc-name">Rack Install</span><span className="svc-price">$40</span></div>
+            <div className="price-row"><span className="svc-name">Wire Light / Accessory</span><span className="svc-price">$75</span></div>
+            <div className="price-row"><span className="svc-name">Drivetrain Deep Clean</span><span className="svc-price">$50</span></div>
+            <div className="price-row"><span className="svc-name">Full Bike Deep Clean</span><span className="svc-price">$125</span></div>
           </div>
         </div>
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Tune Packages</h2>
           <div className="space-y-2">
-            <div className="price-row"><span>Tune Level 1 (Adjustments)</span><span>$150</span></div>
-            <div className="price-row"><span>Tune Level 2 (Standard Tune)</span><span>$275</span></div>
-            <div className="price-row"><span>Tune Level 3 (Overhaul)</span><span>$500</span></div>
+            <div className="price-row"><span className="svc-name">Tune Level 1 (Adjustments)</span><span className="svc-price">$150</span></div>
+            <div className="price-row"><span className="svc-name">Tune Level 2 (Standard Tune)</span><span className="svc-price">$275</span></div>
+            <div className="price-row"><span className="svc-name">Tune Level 3 (Overhaul)</span><span className="svc-price">$500</span></div>
           </div>
         </div>
 

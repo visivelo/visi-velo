@@ -37,7 +37,7 @@ h3 {
   font-weight: 500;
 }
 
-/* BODY TEXT = SERIF NOW */
+/* BODY TEXT (site-wide serif) */
 p,
 span,
 li,
@@ -160,6 +160,39 @@ img {
 }
 
 /* =========================
+   SERVICE MENU (FIXED COLOR SYSTEM)
+========================= */
+
+.service-menu {
+  position: relative;
+}
+
+/* base pricing rows */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  font-family: "Cormorant Garamond", serif;
+  transition: color 0.35s ease;
+}
+
+/* default state */
+.svc-name,
+.svc-price {
+  color: #000000;
+  transition: color 0.35s ease;
+}
+
+/* controlled orange lift (no global tint bleed) */
+.service-menu .svc-name {
+  color: color-mix(in srgb, #000000 75%, var(--orange) 25%);
+}
+
+.service-menu .svc-price {
+  color: color-mix(in srgb, #000000 45%, var(--orange) 55%);
+}
+
+/* =========================
    BACKGROUND SAFETY
 ========================= */
 
@@ -170,61 +203,4 @@ body {
 main {
   position: relative;
   z-index: 1;
-}
-.service-menu {
-  --x: 50%;
-}
-
-/* pricing rows */
-.price-row {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-
-  font-family: "Cormorant Garamond", serif;
-  font-size: 16px;
-
-  /* smooth transition */
-  transition: color 0.4s ease;
-}
-
-/* LEFT SIDE (lavender area → black text) */
-.price-row span {
-  color: black;
-  transition: color 0.4s ease;
-}
-
-/* RIGHT SIDE PRICE DEFAULT */
-.price-row span:last-child {
-  color: black;
-  transition: color 0.4s ease;
-}
-
-/* when cursor moves across page, gradient influence */
-.service-menu:hover .price-row span {
-  color: black;
-}
-
-/* dynamic overlay tint using same cursor system as background */
-.service-menu {
-  position: relative;
-}
-
-/* subtle blend shift toward orange as page interaction increases */
-.service-menu .price-row span:last-child {
-  color: black;
-}
-
-/* ACTIVE COLOR SHIFT ZONE (uses existing radial cursor vars) */
-.app-bg::after {
-  mix-blend-mode: overlay;
-}
-
-/* ORANGE SHIFT ON HOVER REGION */
-.service-menu:hover .price-row span {
-  color: color-mix(in srgb, black 60%, var(--orange) 40%);
-}
-
-.service-menu:hover .price-row span:last-child {
-  color: color-mix(in srgb, black 30%, var(--orange) 70%);
 }
