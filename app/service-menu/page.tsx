@@ -39,6 +39,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Drivetrain & Mechanical</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Bottom Bracket Overhaul / Replacement</span><span className="svc-price">$35</span></div>
             <div className="price-row"><span className="svc-name">Headset Overhaul / Bearing Install</span><span className="svc-price">$40</span></div>
@@ -53,6 +54,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Cockpit & Controls</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Stem Install</span><span className="svc-price">$15</span></div>
             <div className="price-row"><span className="svc-name">Handlebar Install</span><span className="svc-price">$30</span></div>
@@ -65,6 +67,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Brakes</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Brake Hose Replacement</span><span className="svc-price">$50</span></div>
             <div className="price-row"><span className="svc-name">Install Brake Caliper (Mechanical)</span><span className="svc-price">$30</span></div>
@@ -79,6 +82,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Adjustments</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Derailleur Adjustment</span><span className="svc-price">$20</span></div>
             <div className="price-row"><span className="svc-name">Derailleur Hanger Alignment / Replacement</span><span className="svc-price">$20</span></div>
@@ -87,6 +91,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Cleaning & Accessories</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Fender Install</span><span className="svc-price">$40</span></div>
             <div className="price-row"><span className="svc-name">Fender Install *Labor Intensive*</span><span className="svc-price">$100</span></div>
@@ -99,6 +104,7 @@ export default function ServiceMenuPage() {
 
         <div>
           <h2 className="text-xl font-semibold mb-4 text-[#d9772a]">Tune Packages</h2>
+
           <div className="space-y-2">
             <div className="price-row"><span className="svc-name">Tune Level 1 (Adjustments)</span><span className="svc-price">$150</span></div>
             <div className="price-row"><span className="svc-name">Tune Level 2 (Standard Tune)</span><span className="svc-price">$275</span></div>
