@@ -18,7 +18,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Ensure app fills full viewport */
 #__next,
 main {
   min-height: 100vh;
@@ -48,7 +47,7 @@ a {
 }
 
 /* =========================
-   THEME COLORS
+   THEME
 ========================= */
 
 :root {
@@ -58,7 +57,7 @@ a {
 }
 
 /* =========================
-   GLOBAL BACKGROUND SYSTEM
+   BACKGROUND
 ========================= */
 
 .app-bg {
@@ -68,7 +67,6 @@ a {
   pointer-events: none;
 }
 
-/* Base diagonal split */
 .app-bg::before {
   content: "";
   position: absolute;
@@ -81,12 +79,8 @@ a {
     var(--lavender) 50%,
     var(--lavender) 100%
   );
-
-  will-change: transform;
-  transform: translateZ(0);
 }
 
-/* soft glow layer */
 .app-bg::after {
   content: "";
   position: absolute;
@@ -103,44 +97,47 @@ a {
 }
 
 /* =========================
-   HOVER SYSTEM (GLOBAL)
+   LINKS (NON-BUTTON TEXT)
 ========================= */
 
-a,
-button,
-[role="button"] {
-  transition: color 0.2s ease, opacity 0.2s ease;
-}
-
-/* ONLY hovered element changes */
-a:hover,
-button:hover,
-[role="button"]:hover {
+a:hover {
   color: var(--orange);
 }
 
-/* override Tailwind text utilities on hover */
-.text-white:hover,
-.text-white\/70:hover,
-.text-white\/80:hover {
-  color: var(--orange) !important;
-}
-
-/* =========================
-   NAV SAFETY (prevents group hover bleed)
-========================= */
-
-nav a {
-  transition: color 0.2s ease;
-}
-
+/* nav links behave same */
 nav a:hover {
   color: var(--orange);
 }
 
 /* =========================
-   BACKGROUND SAFETY FIX
-   (prevents black top “dead zone”)
+   BUTTON SYSTEM (FIXED BEHAVIOR)
+========================= */
+
+/* default button look */
+button,
+[role="button"],
+a[class*="bg-white"],
+a[class*="bg-black"] {
+  color: #000000;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+/* hover state */
+button:hover,
+[role="button"]:hover,
+a[class*="bg-white"]:hover,
+a[class*="bg-black"]:hover {
+  color: var(--orange);
+}
+
+/* ensure text utilities don't override button behavior */
+button.text-white,
+a.text-white {
+  color: #000 !important;
+}
+
+/* =========================
+   BACKGROUND SAFETY
 ========================= */
 
 body {
