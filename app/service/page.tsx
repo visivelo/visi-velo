@@ -33,7 +33,12 @@ export default function ServicePage() {
 
       if (response.ok) {
         setSuccess(true);
-        setForm({ name: "", email: "", bike: "", message: "" });
+        setForm({
+          name: "",
+          email: "",
+          bike: "",
+          message: "",
+        });
       }
     } catch (error) {
       console.error(error);
@@ -44,10 +49,7 @@ export default function ServicePage() {
 
   return (
     <main className="min-h-screen px-6 py-24 text-black relative z-10 font-serif">
-      <Link
-        href="/"
-        className="text-sm text-black/60 hover:text-black"
-      >
+      <Link href="/" className="text-sm text-black/60 hover:text-black">
         ← home
       </Link>
 
@@ -55,7 +57,8 @@ export default function ServicePage() {
         service request
       </h1>
 
-      <p className="mt-4 max-w-xl italic text-black/80 text-lg leading-relaxed">
+      {/* ONLY CHANGE: TEXT COLOR -> ORANGE */}
+      <p className="mt-4 max-w-xl italic text-[#d9772a] text-lg leading-relaxed">
         Schedule repair, restoration, consultation, or custom build services.
       </p>
 
