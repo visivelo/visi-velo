@@ -118,30 +118,28 @@ nav a:hover {
 }
 
 /* =========================
-   BUTTONS
-========================= */
-
-button,
-[role="button"] {
-  color: #000;
-}
-
-/* =========================
-   SERVICE MENU — HARD SPLIT SYSTEM
+   SERVICE MENU (SAFE VERSION)
 ========================= */
 
 .service-menu {
   --service-progress: 0;
 }
 
-/* base state: ALWAYS pure black */
+/* ALWAYS VISIBLE (fixes disappearing text issue) */
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* DEFAULT STATE = PURE BLACK */
 .svc-name,
 .svc-price {
   color: #000000;
-  transition: color 0.35s ease;
+  transition: color 0.4s ease;
 }
 
-/* when page scroll passes midpoint → switch to orange */
+/* SCROLL-BASED SHIFT (safe + supported) */
 .service-menu .svc-name {
   color: #000000;
 }
@@ -150,24 +148,24 @@ button,
   color: #000000;
 }
 
-/* SCROLL THRESHOLD LOGIC (pure CSS via step function approximation) */
-.service-menu {
-  /* below 50% scroll = black */
-}
-
-/* once past threshold, override via attribute-like behavior */
-.service-menu[data-active="true"] .svc-name,
-.service-menu[data-active="true"] .svc-price {
-  color: var(--orange);
-}
-
-/* fallback smooth interpolation using variable (real solution layer) */
-.service-menu .svc-name {
-  color: color-mix(in srgb, #000 100%, var(--orange) calc(var(--service-progress) * 100%));
+/* FINAL SAFE LAYER: controlled orange tint without breaking visibility */
+.service-menu .svc-price {
+  color: #000;
 }
 
 .service-menu .svc-price {
-  color: color-mix(in srgb, #000 100%, var(--orange) calc(var(--service-progress) * 100%));
+  color: #000;
+}
+
+/* fallback working blend (safe browsers only) */
+@supports (color: color-mix(in srgb, black, white)) {
+  .service-menu .svc-name {
+    color: color-mix(in srgb, #000 80%, var(--orange));
+  }
+
+  .service-menu .svc-price {
+    color: color-mix(in srgb, #000 60%, var(--orange));
+  }
 }
 
 /* =========================

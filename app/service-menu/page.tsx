@@ -7,24 +7,6 @@ export default function ServiceMenuPage() {
   useEffect(() => {
     const bg = document.getElementById("app-bg");
     if (bg) bg.classList.remove("expand");
-
-    const update = () => {
-      const scrollY = window.scrollY;
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-
-      const progress = docHeight > 0 ? scrollY / docHeight : 0;
-
-      const el = document.querySelector(".service-menu") as HTMLElement | null;
-      if (el) {
-        el.style.setProperty("--service-progress", String(progress));
-      }
-    };
-
-    window.addEventListener("scroll", update);
-    update();
-
-    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (
