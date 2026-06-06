@@ -16,33 +16,25 @@ export default function RootLayout({
 
         <header className="fixed top-0 z-50 w-full border-b border-white/10 bg-black/40 backdrop-blur-md">
           <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+
+            {/* FIXED LOGO */}
             <Link
               href="/"
-              className="tracking-[0.35em] uppercase text-white text-sm hover:text-[#d9772a] transition-colors"
+              className="nav-logo tracking-[0.35em] uppercase text-sm"
             >
               viši velo
             </Link>
 
-            {/* FIXED NAV: each link independent hover */}
             <nav className="hidden md:flex gap-10 text-white/70 text-sm">
-              <Link
-                href="/service"
-                className="hover:text-[#d9772a] transition-colors"
-              >
+              <Link href="/service" className="hover:text-[#d9772a] transition-colors">
                 Service
               </Link>
 
-              <Link
-                href="/Builds"
-                className="hover:text-[#d9772a] transition-colors"
-              >
+              <Link href="/Builds" className="hover:text-[#d9772a] transition-colors">
                 Builds
               </Link>
 
-              <Link
-                href="/shop"
-                className="hover:text-[#d9772a] transition-colors"
-              >
+              <Link href="/shop" className="hover:text-[#d9772a] transition-colors">
                 Shop
               </Link>
             </nav>

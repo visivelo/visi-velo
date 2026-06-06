@@ -97,23 +97,34 @@ a {
 }
 
 /* =========================
-   LINKS (NON-BUTTON TEXT)
+   NAV LOGO (FIXED CONTROLLED BEHAVIOR)
 ========================= */
 
-a:hover {
-  color: var(--orange);
+.nav-logo {
+  color: #ffffff !important;
+  transition: color 0.2s ease;
 }
 
-/* nav links behave same */
+.nav-logo:hover {
+  color: var(--orange) !important;
+}
+
+/* =========================
+   NAV LINKS
+========================= */
+
+nav a {
+  transition: color 0.2s ease;
+}
+
 nav a:hover {
   color: var(--orange);
 }
 
 /* =========================
-   BUTTON SYSTEM (FIXED BEHAVIOR)
+   BUTTON SYSTEM (clean + safe)
 ========================= */
 
-/* default button look */
 button,
 [role="button"],
 a[class*="bg-white"],
@@ -122,18 +133,11 @@ a[class*="bg-black"] {
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-/* hover state */
 button:hover,
 [role="button"]:hover,
 a[class*="bg-white"]:hover,
 a[class*="bg-black"]:hover {
   color: var(--orange);
-}
-
-/* ensure text utilities don't override button behavior */
-button.text-white,
-a.text-white {
-  color: #000 !important;
 }
 
 /* =========================
