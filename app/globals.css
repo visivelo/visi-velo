@@ -37,6 +37,15 @@ h3 {
   font-weight: 500;
 }
 
+/* BODY TEXT = SERIF NOW */
+p,
+span,
+li,
+a,
+div {
+  font-family: "Cormorant Garamond", serif;
+}
+
 p {
   color: rgba(255, 255, 255, 0.85);
 }
