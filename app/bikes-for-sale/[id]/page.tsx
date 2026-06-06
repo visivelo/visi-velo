@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { bikes } from "../../data/bikes";
 import { notFound } from "next/navigation";
 
@@ -7,6 +10,7 @@ export default function BikeDetailPage({
   params: { id: string };
 }) {
   const bike = bikes.find((b) => b.id === params.id);
+  const [active, setActive] = useState<string | null>(null);
 
   if (!bike) return notFound();
 
@@ -18,31 +22,31 @@ export default function BikeDetailPage({
         </h1>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {/* MAIN IMAGE */}
+          {/* MAIN */}
           <div className="overflow-hidden rounded-xl border border-white/10">
             <img
               src={bike.coverImage}
               alt={bike.title}
               className="w-full h-full object-cover"
+              onClick={() => setActive(bike.coverImage)}
             />
           </div>
 
-          {/* DETAILS */}
+          {/* INFO */}
           <div className="flex flex-col gap-4">
             <p className="text-white/80">{bike.description}</p>
 
-            <div className="text-[#d9772a] text-2xl">
-              {bike.price}
-            </div>
+            <div className="text-[#d9772a] text-2xl">{bike.price}</div>
           </div>
         </div>
 
-        {/* GALLERY */}
+        {/* GALLERY GRID */}
         <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
           {bike.images.map((img, i) => (
             <div
               key={i}
-              className="overflow-hidden rounded-lg border border-white/10 group"
+              className="overflow-hidden rounded-lg border border-white/10 group cursor-pointer"
+              onClick={() => setActive(img)}
             >
               <img
                 src={img}
@@ -52,6 +56,19 @@ export default function BikeDetailPage({
           ))}
         </div>
       </div>
+
+      {/* LIGHTBOX */}
+      {active && (
+        <div
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          onClick={() => setActive(null)}
+        >
+          <img
+            src={active}
+            className="max-w-[90vw] max-h-[90vh] object-contain"
+          />
+        </div>
+      )}
     </main>
   );
 }

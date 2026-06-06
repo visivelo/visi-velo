@@ -71,7 +71,6 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-
   background: linear-gradient(
     135deg,
     var(--black) 0%,
@@ -85,19 +84,17 @@ a {
   content: "";
   position: absolute;
   inset: 0;
-
   background: radial-gradient(
     circle at var(--x, 50%) var(--y, 30%),
     rgba(185, 167, 255, 0.22),
     transparent 60%
   );
-
   mix-blend-mode: overlay;
   pointer-events: none;
 }
 
 /* =========================
-   NAV LOGO (FIXED CONTROLLED BEHAVIOR)
+   NAV LOGO
 ========================= */
 
 .nav-logo {
@@ -122,7 +119,7 @@ nav a:hover {
 }
 
 /* =========================
-   BUTTON SYSTEM (clean + safe)
+   BUTTON SYSTEM
 ========================= */
 
 button,
@@ -138,6 +135,19 @@ button:hover,
 a[class*="bg-white"]:hover,
 a[class*="bg-black"]:hover {
   color: var(--orange);
+}
+
+/* =========================
+   IMAGE INTERACTIONS
+========================= */
+
+img {
+  transition: transform 0.4s ease;
+  will-change: transform;
+}
+
+.group:hover img {
+  transform: scale(1.08);
 }
 
 /* =========================

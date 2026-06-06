@@ -22,7 +22,7 @@ export default function BikesForSalePage() {
                     <img
                       src={bike.coverImage}
                       alt={bike.title}
-                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                   </div>
                 </div>
