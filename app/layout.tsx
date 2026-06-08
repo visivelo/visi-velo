@@ -28,10 +28,10 @@ export default function RootLayout({
             {/* DESKTOP NAV */}
             <nav className="hidden md:flex gap-10 text-white/70 text-sm">
               <Link
-                href="/service"
+                href="/service-menu"
                 className="hover:text-[#d9772a] transition-colors"
               >
-                Service
+                Service Menu
               </Link>
 
               <Link
@@ -49,7 +49,7 @@ export default function RootLayout({
               </Link>
             </nav>
 
-            {/* MOBILE NAV (ONLY Bikes For Sale + Shop) */}
+            {/* MOBILE NAV */}
             <nav className="flex md:hidden gap-6 text-white/70 text-xs">
               <Link
                 href="/bikes-for-sale"
@@ -66,7 +66,7 @@ export default function RootLayout({
               </Link>
             </nav>
 
-            {/* CTA (hidden on very small screens to prevent overflow if needed) */}
+            {/* BOOK SERVICE BUTTON */}
             <Link
               href="/service"
               className="hidden sm:inline-flex bg-white text-black px-5 py-2 rounded-full text-sm hover:text-[#d9772a] transition-colors"
