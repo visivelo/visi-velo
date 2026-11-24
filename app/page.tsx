@@ -5,33 +5,21 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
-  const trackRef = useRef<HTMLDivElement>(null);
   const viewportRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const didDragRef = useRef(false);
   const [active, setActive] = useState<string | null>(null);
 
   const images = [
-    "/Images/Builds/1.JPG",
-    "/Images/Builds/2.JPG",
-    "/Images/Builds/3.JPG",
-    "/Images/Builds/4.JPG",
-    "/Images/Builds/5.JPG",
-    "/Images/Builds/6.JPG",
-    "/Images/Builds/7.JPG",
-    "/Images/Builds/8.JPG",
-    "/Images/Builds/9.JPG",
-    "/Images/Builds/10.JPG",
-    "/Images/Builds/11.JPG",
-    "/Images/Builds/12.JPG",
-    "/Images/Builds/13.JPG",
-    "/Images/Builds/14.JPG",
-    "/Images/Builds/15.JPG",
-    "/Images/Builds/16.JPG",
+    ...Array.from({ length: 16 }, (_, i) => `/Images/Builds/${i + 1}.JPG`),
+    ...[25, 26, 27, 28, 29, 36, 38, 39, 40, 41, 42, 43, 44].map(
+      (n) => `/Images/Builds/${n}.JPG`
+    ),
   ];
 
   const looped = [...images, ...images, ...images];
 
   /* BACKGROUND SCROLL TRANSITION */
-
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
@@ -46,108 +34,138 @@ export default function Home() {
     };
 
     window.addEventListener("scroll", onScroll);
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-    };
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* CAROUSEL */
-
+  /* INFINITE CAROUSEL */
   useEffect(() => {
-    const el = trackRef.current;
     const viewport = viewportRef.current;
+    const track = trackRef.current;
 
-    if (!el || !viewport) return;
+    if (!viewport || !track) return;
+
+    const cards = Array.from(track.children) as HTMLElement[];
+
+    if (cards.length < images.length * 3) return;
 
     let x = 0;
     let target = 0;
+    let cycleWidth = 0;
+    let animationFrame = 0;
+
     let isDown = false;
     let startX = 0;
     let startTarget = 0;
-    let rafId = 0;
 
-    const cards = Array.from(el.children) as HTMLElement[];
+    const measure = () => {
+      const first = cards[0].getBoundingClientRect();
+      const last = cards[images.length - 1].getBoundingClientRect();
+
+      cycleWidth = last.right - first.left;
+
+      if (cycleWidth > 0 && x === 0 && target === 0) {
+        x = cycleWidth;
+        target = cycleWidth;
+        track.style.transform = `translate3d(${-x}px, 0, 0)`;
+      }
+    };
+
+    measure();
 
     const animate = () => {
-      x += (target - x) * 0.08;
+      if (cycleWidth > 0) {
+        x += (target - x) * 0.08;
 
-      el.style.transform = `translate3d(${-x}px, 0, 0)`;
+        while (x < cycleWidth) {
+          x += cycleWidth;
+          target += cycleWidth;
+        }
 
-      const center = window.innerWidth / 2;
+        while (x >= cycleWidth * 2) {
+          x -= cycleWidth;
+          target -= cycleWidth;
+        }
 
-      cards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
+        track.style.transform = `translate3d(${-x}px, 0, 0)`;
 
-        const dist = Math.abs(
-          center - (rect.left + rect.width / 2)
-        );
+        const viewportRect = viewport.getBoundingClientRect();
+        const center = viewportRect.left + viewportRect.width / 2;
 
-        const proximity = 1 - Math.min(dist / 700, 1);
+        cards.forEach((card) => {
+          const rect = card.getBoundingClientRect();
+          const distance = Math.abs(
+            center - (rect.left + rect.width / 2)
+          );
+          const proximity = 1 - Math.min(distance / 700, 1);
+          const scale = 0.85 + proximity * 0.35;
 
-        const scale = 0.85 + proximity * 0.35;
+          card.style.transform = `scale(${scale})`;
+          card.style.opacity = String(0.4 + proximity * 0.6);
+        });
+      }
 
-        card.style.transform = `scale(${scale})`;
-        card.style.opacity = String(0.4 + proximity * 0.6);
-      });
-
-      rafId = requestAnimationFrame(animate);
+      animationFrame = requestAnimationFrame(animate);
     };
 
-    rafId = requestAnimationFrame(animate);
+    animationFrame = requestAnimationFrame(animate);
 
-    /* MOUSE AND TOUCH DRAG */
+    const onWheel = (event: WheelEvent) => {
+      target += event.deltaX !== 0 ? event.deltaX : event.deltaY;
+    };
 
-    const down = (e: PointerEvent) => {
-      if (e.button !== 0 && e.pointerType === "mouse") return;
+    const onPointerDown = (event: PointerEvent) => {
+      if (event.pointerType === "mouse" && event.button !== 0) return;
 
       isDown = true;
-      startX = e.clientX;
+      didDragRef.current = false;
+      startX = event.clientX;
       startTarget = target;
 
-      viewport.setPointerCapture(e.pointerId);
+      viewport.setPointerCapture(event.pointerId);
     };
 
-    const move = (e: PointerEvent) => {
+    const onPointerMove = (event: PointerEvent) => {
       if (!isDown) return;
 
-      target = startTarget - (e.clientX - startX);
+      const movement = event.clientX - startX;
+
+      if (Math.abs(movement) > 5) {
+        didDragRef.current = true;
+      }
+
+      target = startTarget - movement;
     };
 
-    const up = () => {
+    const onPointerUp = () => {
       isDown = false;
     };
 
-    /* SCROLL OVER CAROUSEL */
-
-    const wheel = (e: WheelEvent) => {
-      target += Math.abs(e.deltaY) > Math.abs(e.deltaX)
-        ? e.deltaY
-        : e.deltaX;
+    const onResize = () => {
+      measure();
     };
 
-    viewport.addEventListener("pointerdown", down);
-    viewport.addEventListener("pointermove", move);
-    viewport.addEventListener("pointerup", up);
-    viewport.addEventListener("pointercancel", up);
-    viewport.addEventListener("wheel", wheel, { passive: true });
+    viewport.addEventListener("wheel", onWheel, { passive: true });
+    viewport.addEventListener("pointerdown", onPointerDown);
+    viewport.addEventListener("pointermove", onPointerMove);
+    viewport.addEventListener("pointerup", onPointerUp);
+    viewport.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("resize", onResize);
 
     return () => {
-      cancelAnimationFrame(rafId);
+      cancelAnimationFrame(animationFrame);
 
-      viewport.removeEventListener("pointerdown", down);
-      viewport.removeEventListener("pointermove", move);
-      viewport.removeEventListener("pointerup", up);
-      viewport.removeEventListener("pointercancel", up);
-      viewport.removeEventListener("wheel", wheel);
+      viewport.removeEventListener("wheel", onWheel);
+      viewport.removeEventListener("pointerdown", onPointerDown);
+      viewport.removeEventListener("pointermove", onPointerMove);
+      viewport.removeEventListener("pointerup", onPointerUp);
+      viewport.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
-
       {/* HERO */}
-
       <section className="text-center py-32 relative z-10">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
           viši velo
@@ -175,7 +193,6 @@ export default function Home() {
       </section>
 
       {/* BUILD ARCHIVE */}
-
       <section className="py-20 px-6 border-t border-white/10 relative z-10">
         <h2 className="text-3xl">Build Archive</h2>
 
@@ -193,16 +210,23 @@ export default function Home() {
               <div
                 key={`${src}-${i}`}
                 className="w-[260px] h-[180px] flex-shrink-0"
-                style={{ willChange: "transform" }}
+                style={{ willChange: "transform, opacity" }}
               >
                 <img
                   src={src}
-                  alt={`viši velo bicycle build ${((i % images.length) + 1)}`}
-                  loading={i < 8 ? "eager" : "lazy"}
+                  alt={`viši velo bicycle build ${src.split("/").pop()}`}
+                  loading={i < images.length ? "eager" : "lazy"}
                   decoding="async"
                   draggable={false}
-                  className="w-full h-full object-cover rounded-xl cursor-pointer select-none"
-                  onClick={() => setActive(src)}
+                  className="w-full h-full object-cover rounded-xl cursor-pointer"
+                  onClick={() => {
+                    if (didDragRef.current) {
+                      didDragRef.current = false;
+                      return;
+                    }
+
+                    setActive(src);
+                  }}
                 />
               </div>
             ))}
@@ -211,7 +235,6 @@ export default function Home() {
       </section>
 
       {/* IMAGE LIGHTBOX */}
-
       {active && (
         <div
           className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 cursor-pointer"
@@ -219,13 +242,11 @@ export default function Home() {
         >
           <img
             src={active}
-            alt="Selected viši velo bicycle build"
-            decoding="async"
+            alt="Bicycle build"
             className="max-w-[90vw] max-h-[90vh] object-contain"
           />
         </div>
       )}
-
     </main>
   );
 }
