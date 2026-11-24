@@ -87,7 +87,6 @@ export default function Home() {
 
         x += (target - x) * 0.08;
 
-        // Seamlessly wrap in either direction.
         while (x < cycleWidth) {
           x += cycleWidth;
           target += cycleWidth;
@@ -154,9 +153,7 @@ export default function Home() {
       isDraggingRef.current = false;
     };
 
-    const onResize = () => {
-      measure();
-    };
+    const onResize = () => measure();
 
     viewport.addEventListener("wheel", onWheel, { passive: true });
     viewport.addEventListener("pointerdown", onPointerDown);
@@ -200,7 +197,6 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
-
       {/* HERO */}
       <section className="text-center py-32 relative z-10">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
@@ -276,12 +272,12 @@ export default function Home() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
           onClick={() => setActiveIndex(null)}
         >
-          {/* CLOSE */}
+          {/* CLOSE BUTTON - BELOW SITE HEADER */}
           <button
             type="button"
             aria-label="Close lightbox"
             onClick={() => setActiveIndex(null)}
-            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 text-white/80 text-3xl transition hover:bg-white/20 hover:text-white"
+            className="fixed top-24 right-5 sm:right-8 z-[110] flex h-11 w-11 items-center justify-center rounded-full border border-white/40 bg-black/80 text-white text-3xl shadow-xl transition hover:bg-white/20 hover:border-white"
           >
             ×
           </button>
