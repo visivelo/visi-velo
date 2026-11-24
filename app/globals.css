@@ -233,6 +233,8 @@ img {
 
 .service-menu .svc-price {
   color: color-mix(in srgb, #000000 45%, var(--orange) 55%);
+  font-size: 1.5rem;
+  font-weight: 600;
 }
 
 /* =========================
@@ -250,4 +252,16 @@ main {
 
 .svc-name {
   color: var(--orange) !important;
+}
+
+/* =========================
+   MOBILE WATERMARK
+========================= */
+
+@media (max-width: 768px) {
+  .site-watermark {
+    background-size: 140vw auto;
+    background-position: center 60%;
+    opacity: 0.2;
+  }
 }
