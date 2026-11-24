@@ -111,7 +111,7 @@ a {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image: url("/Images/branding/visi-velo-watermark.JPG");
+  background-image: url("/Images/Branding/visi-velo-watermark.JPG");
   background-repeat: no-repeat;
   background-position: center center;
   background-size: min(70vw, 760px) auto;
