@@ -64,23 +64,32 @@ export default function Home() {
     let animationFrame = 0;
     let cycleWidth = 0;
     let initialized = false;
+    let running = true;
 
     const measure = () => {
+      if (!cards.length || !cards[imageCount - 1]) return;
+
       const first = cards[0].getBoundingClientRect();
       const last = cards[imageCount - 1].getBoundingClientRect();
 
-      cycleWidth = last.right - first.left;
+      const measuredWidth = last.right - first.left;
 
-      if (!initialized && cycleWidth > 0) {
+      if (measuredWidth <= 0) return;
+
+      cycleWidth = measuredWidth;
+
+      if (!initialized) {
         positionRef.current = cycleWidth;
         targetRef.current = cycleWidth;
         initialized = true;
       }
     };
 
-    measure();
-
     const animate = () => {
+      if (!running) return;
+
+      if (!initialized) measure();
+
       if (initialized && cycleWidth > 0) {
         let x = positionRef.current;
         let target = targetRef.current;
@@ -121,8 +130,6 @@ export default function Home() {
       animationFrame = requestAnimationFrame(animate);
     };
 
-    animationFrame = requestAnimationFrame(animate);
-
     const onWheel = (event: WheelEvent) => {
       targetRef.current +=
         event.deltaX !== 0 ? event.deltaX : event.deltaY;
@@ -155,15 +162,37 @@ export default function Home() {
 
     const onResize = () => measure();
 
+    const onPageShow = () => {
+      measure();
+    };
+
+    const onVisibilityChange = () => {
+      if (!document.hidden) {
+        measure();
+      }
+    };
+
+    measure();
+
+    animationFrame = requestAnimationFrame(animate);
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(viewport);
+    resizeObserver.observe(track);
+
     viewport.addEventListener("wheel", onWheel, { passive: true });
     viewport.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
     window.addEventListener("pointerup", onPointerUp);
     window.addEventListener("pointercancel", onPointerUp);
     window.addEventListener("resize", onResize);
+    window.addEventListener("pageshow", onPageShow);
+    document.addEventListener("visibilitychange", onVisibilityChange);
 
     return () => {
+      running = false;
       cancelAnimationFrame(animationFrame);
+      resizeObserver.disconnect();
 
       viewport.removeEventListener("wheel", onWheel);
       viewport.removeEventListener("pointerdown", onPointerDown);
@@ -171,6 +200,8 @@ export default function Home() {
       window.removeEventListener("pointerup", onPointerUp);
       window.removeEventListener("pointercancel", onPointerUp);
       window.removeEventListener("resize", onResize);
+      window.removeEventListener("pageshow", onPageShow);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
@@ -255,7 +286,7 @@ export default function Home() {
                 <img
                   src={src}
                   alt={`viši velo bicycle build ${src.split("/").pop()}`}
-                  loading={i < images.length ? "eager" : "lazy"}
+                  loading="eager"
                   decoding="async"
                   draggable={false}
                   className="w-full h-full object-cover rounded-xl cursor-pointer"
@@ -272,7 +303,6 @@ export default function Home() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
           onClick={() => setActiveIndex(null)}
         >
-          {/* CLOSE BUTTON - BELOW SITE HEADER */}
           <button
             type="button"
             aria-label="Close lightbox"
