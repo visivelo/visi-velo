@@ -226,7 +226,7 @@ export default function Home() {
       {/* HERO */}
       <section className="text-center py-32 relative z-10">
         <h1
-          className="text-6xl tracking-widest text-[#d9772a]"
+          className="text-7xl tracking-widest text-[#d9772a]"
           style={{
             position: "relative",
             zIndex: 20,
@@ -236,7 +236,7 @@ export default function Home() {
           viši velo
         </h1>
 
-        <p className="mt-6 italic text-[#d9772a]">
+        <p className="mt-6 text-2xl italic text-[#d9772a]">
           ELEVATE your cycling experience
         </p>
 
