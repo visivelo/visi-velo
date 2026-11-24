@@ -8,7 +8,7 @@ export default function Home() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const didDragRef = useRef(false);
-  const [active, setActive] = useState<string | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const images = [
     ...Array.from({ length: 16 }, (_, i) => `/Images/Builds/${i + 1}.JPG`),
@@ -18,6 +18,18 @@ export default function Home() {
   ];
 
   const looped = [...images, ...images, ...images];
+
+  const showPrevious = () => {
+    setActiveIndex((current) =>
+      current === null ? null : (current - 1 + images.length) % images.length
+    );
+  };
+
+  const showNext = () => {
+    setActiveIndex((current) =>
+      current === null ? null : (current + 1) % images.length
+    );
+  };
 
   /* BACKGROUND SCROLL TRANSITION */
   useEffect(() => {
@@ -163,6 +175,25 @@ export default function Home() {
     };
   }, []);
 
+  /* LIGHTBOX KEYBOARD CONTROLS */
+  useEffect(() => {
+    if (activeIndex === null) return;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setActiveIndex(null);
+      if (event.key === "ArrowLeft") showPrevious();
+      if (event.key === "ArrowRight") showNext();
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [activeIndex]);
+
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
       {/* HERO */}
@@ -225,7 +256,7 @@ export default function Home() {
                       return;
                     }
 
-                    setActive(src);
+                    setActiveIndex(i % images.length);
                   }}
                 />
               </div>
@@ -234,17 +265,65 @@ export default function Home() {
         </div>
       </section>
 
-      {/* IMAGE LIGHTBOX */}
-      {active && (
+      {/* LIGHTBOX */}
+      {activeIndex !== null && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 cursor-pointer"
-          onClick={() => setActive(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
+          onClick={() => setActiveIndex(null)}
         >
-          <img
-            src={active}
-            alt="Bicycle build"
-            className="max-w-[90vw] max-h-[90vh] object-contain"
-          />
+          {/* CLOSE BUTTON */}
+          <button
+            type="button"
+            aria-label="Close lightbox"
+            onClick={() => setActiveIndex(null)}
+            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 text-white/80 text-2xl transition hover:bg-white/15 hover:text-white"
+          >
+            ×
+          </button>
+
+          {/* PREVIOUS BUTTON */}
+          <button
+            type="button"
+            aria-label="Previous photo"
+            onClick={(event) => {
+              event.stopPropagation();
+              showPrevious();
+            }}
+            className="absolute left-3 sm:left-8 z-20 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white/90 text-3xl transition hover:bg-white/15 hover:border-white/50"
+          >
+            ‹
+          </button>
+
+          {/* PHOTO */}
+          <div
+            className="flex h-full w-full flex-col items-center justify-center gap-5"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              key={images[activeIndex]}
+              src={images[activeIndex]}
+              alt={`viši velo bicycle build ${activeIndex + 1}`}
+              className="max-h-[78vh] max-w-[85vw] object-contain rounded-sm shadow-2xl"
+            />
+
+            <p className="text-sm tracking-[0.25em] text-white/50">
+              {String(activeIndex + 1).padStart(2, "0")} /{" "}
+              {String(images.length).padStart(2, "0")}
+            </p>
+          </div>
+
+          {/* NEXT BUTTON */}
+          <button
+            type="button"
+            aria-label="Next photo"
+            onClick={(event) => {
+              event.stopPropagation();
+              showNext();
+            }}
+            className="absolute right-3 sm:right-8 z-20 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white/90 text-3xl transition hover:bg-white/15 hover:border-white/50"
+          >
+            ›
+          </button>
         </div>
       )}
     </main>
