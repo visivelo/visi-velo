@@ -113,8 +113,8 @@ a {
   pointer-events: none;
   background-image: url("/Images/Branding/visi-velo-watermark.JPG");
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: min(70vw, 760px) auto;
+  background-position: center calc(50% + 60px);
+  background-size: min(78vw, 850px) auto;
   filter: invert(1) grayscale(1) contrast(2.5);
   mix-blend-mode: screen;
   opacity: 0.5;
