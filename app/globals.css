@@ -113,11 +113,38 @@ a {
   pointer-events: none;
   background-image: url("/Images/Branding/visi-velo-watermark.JPG");
   background-repeat: no-repeat;
-  background-position: center calc(50% + 60px);
+  background-position: center calc(50% + 75px);
   background-size: min(78vw, 850px) auto;
   filter: invert(1) grayscale(1) contrast(2.5);
   mix-blend-mode: screen;
   opacity: 0.5;
+}
+
+/* =========================
+   HOMEPAGE TAGLINE CONTRAST
+========================= */
+
+main > main > section:first-of-type > p {
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.95),
+    0 0 12px rgba(0, 0, 0, 0.85);
+}
+
+/* =========================
+   HOMEPAGE SERVICE MENU BUTTON
+========================= */
+
+main > main > section:first-of-type a[href="/service-menu"] {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 9999px;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+main > main > section:first-of-type a[href="/service-menu"]:hover {
+  background: #ffffff !important;
+  color: var(--orange) !important;
 }
 
 /* =========================
