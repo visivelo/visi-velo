@@ -117,7 +117,7 @@ a {
   background-size: min(78vw, 850px) auto;
   filter: invert(1) grayscale(1) contrast(2.5);
   mix-blend-mode: screen;
-  opacity: 0.5;
+  opacity: 0.35;
 }
 
 /* =========================

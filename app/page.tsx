@@ -161,15 +161,10 @@ export default function Home() {
     };
 
     const onResize = () => measure();
-
-    const onPageShow = () => {
-      measure();
-    };
+    const onPageShow = () => measure();
 
     const onVisibilityChange = () => {
-      if (!document.hidden) {
-        measure();
-      }
+      if (!document.hidden) measure();
     };
 
     measure();
@@ -230,11 +225,18 @@ export default function Home() {
     <main className="relative min-h-screen text-white overflow-hidden">
       {/* HERO */}
       <section className="text-center py-32 relative z-10">
-        <h1 className="text-6xl tracking-widest text-[#d9772a]">
+        <h1
+          className="text-6xl tracking-widest text-[#d9772a]"
+          style={{
+            position: "relative",
+            zIndex: 20,
+            textShadow: "0 2px 8px rgba(0, 0, 0, 0.75)",
+          }}
+        >
           viši velo
         </h1>
 
-        <p className="mt-6 italic text-white/80">
+        <p className="mt-6 italic text-[#d9772a]">
           ELEVATE your cycling experience
         </p>
 
@@ -247,7 +249,7 @@ export default function Home() {
           </Link>
 
           <Link
-            className="border border-white/30 px-6 py-3 rounded-full"
+            className="bg-white text-black px-6 py-3 rounded-full"
             href="/service-menu"
           >
             Service Menu
@@ -312,7 +314,6 @@ export default function Home() {
             ×
           </button>
 
-          {/* PREVIOUS */}
           <button
             type="button"
             aria-label="Previous photo"
@@ -325,7 +326,6 @@ export default function Home() {
             ‹
           </button>
 
-          {/* IMAGE AND COUNTER */}
           <div
             className="flex h-full w-full flex-col items-center justify-center gap-5"
             onClick={(event) => event.stopPropagation()}
@@ -343,7 +343,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* NEXT */}
           <button
             type="button"
             aria-label="Next photo"
