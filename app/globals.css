@@ -38,7 +38,6 @@ h3 {
   font-weight: 500;
 }
 
-/* BODY TEXT (site-wide serif) */
 p,
 span,
 li,
@@ -116,7 +115,9 @@ a {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: min(70vw, 760px) auto;
-  opacity: 0.07;
+  filter: invert(1) grayscale(1) contrast(2.5);
+  mix-blend-mode: screen;
+  opacity: 0.5;
 }
 
 /* =========================
@@ -177,14 +178,13 @@ img {
 }
 
 /* =========================
-   SERVICE MENU (FIXED COLOR SYSTEM)
+   SERVICE MENU
 ========================= */
 
 .service-menu {
   position: relative;
 }
 
-/* base pricing rows */
 .price-row {
   display: flex;
   justify-content: space-between;
@@ -193,14 +193,12 @@ img {
   transition: color 0.35s ease;
 }
 
-/* default state */
 .svc-name,
 .svc-price {
   color: #000000;
   transition: color 0.35s ease;
 }
 
-/* controlled orange lift (no global tint bleed) */
 .service-menu .svc-name {
   color: color-mix(in srgb, #000000 75%, var(--orange) 25%);
 }
