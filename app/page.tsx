@@ -1,13 +1,19 @@
 
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 export default function Home() {
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const isDraggingRef = useRef(false);
   const didDragRef = useRef(false);
+  const startXRef = useRef(0);
+  const startTargetRef = useRef(0);
+  const targetRef = useRef(0);
+  const positionRef = useRef(0);
+
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const images = [
@@ -19,33 +25,29 @@ export default function Home() {
 
   const looped = [...images, ...images, ...images];
 
-  const showPrevious = () => {
+  const showPrevious = useCallback(() => {
     setActiveIndex((current) =>
       current === null ? null : (current - 1 + images.length) % images.length
     );
-  };
+  }, [images.length]);
 
-  const showNext = () => {
+  const showNext = useCallback(() => {
     setActiveIndex((current) =>
       current === null ? null : (current + 1) % images.length
     );
-  };
+  }, [images.length]);
 
-  /* BACKGROUND SCROLL TRANSITION */
+  /* BACKGROUND */
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
     const onScroll = () => {
-      if (!bg) return;
-
-      if (window.scrollY > 250) {
-        bg.classList.add("expand");
-      } else {
-        bg.classList.remove("expand");
-      }
+      bg?.classList.toggle("expand", window.scrollY > 250);
     };
 
     window.addEventListener("scroll", onScroll);
+    onScroll();
+
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
@@ -57,37 +59,35 @@ export default function Home() {
     if (!viewport || !track) return;
 
     const cards = Array.from(track.children) as HTMLElement[];
+    const imageCount = images.length;
 
-    if (cards.length < images.length * 3) return;
-
-    let x = 0;
-    let target = 0;
-    let cycleWidth = 0;
     let animationFrame = 0;
-
-    let isDown = false;
-    let startX = 0;
-    let startTarget = 0;
+    let cycleWidth = 0;
+    let initialized = false;
 
     const measure = () => {
       const first = cards[0].getBoundingClientRect();
-      const last = cards[images.length - 1].getBoundingClientRect();
+      const last = cards[imageCount - 1].getBoundingClientRect();
 
       cycleWidth = last.right - first.left;
 
-      if (cycleWidth > 0 && x === 0 && target === 0) {
-        x = cycleWidth;
-        target = cycleWidth;
-        track.style.transform = `translate3d(${-x}px, 0, 0)`;
+      if (!initialized && cycleWidth > 0) {
+        positionRef.current = cycleWidth;
+        targetRef.current = cycleWidth;
+        initialized = true;
       }
     };
 
     measure();
 
     const animate = () => {
-      if (cycleWidth > 0) {
+      if (initialized && cycleWidth > 0) {
+        let x = positionRef.current;
+        let target = targetRef.current;
+
         x += (target - x) * 0.08;
 
+        // Seamlessly wrap in either direction.
         while (x < cycleWidth) {
           x += cycleWidth;
           target += cycleWidth;
@@ -98,20 +98,23 @@ export default function Home() {
           target -= cycleWidth;
         }
 
+        positionRef.current = x;
+        targetRef.current = target;
+
         track.style.transform = `translate3d(${-x}px, 0, 0)`;
 
-        const viewportRect = viewport.getBoundingClientRect();
-        const center = viewportRect.left + viewportRect.width / 2;
+        const bounds = viewport.getBoundingClientRect();
+        const center = bounds.left + bounds.width / 2;
 
         cards.forEach((card) => {
           const rect = card.getBoundingClientRect();
           const distance = Math.abs(
             center - (rect.left + rect.width / 2)
           );
-          const proximity = 1 - Math.min(distance / 700, 1);
-          const scale = 0.85 + proximity * 0.35;
 
-          card.style.transform = `scale(${scale})`;
+          const proximity = 1 - Math.min(distance / 700, 1);
+
+          card.style.transform = `scale(${0.85 + proximity * 0.35})`;
           card.style.opacity = String(0.4 + proximity * 0.6);
         });
       }
@@ -122,34 +125,33 @@ export default function Home() {
     animationFrame = requestAnimationFrame(animate);
 
     const onWheel = (event: WheelEvent) => {
-      target += event.deltaX !== 0 ? event.deltaX : event.deltaY;
+      targetRef.current +=
+        event.deltaX !== 0 ? event.deltaX : event.deltaY;
     };
 
     const onPointerDown = (event: PointerEvent) => {
       if (event.pointerType === "mouse" && event.button !== 0) return;
 
-      isDown = true;
+      isDraggingRef.current = true;
       didDragRef.current = false;
-      startX = event.clientX;
-      startTarget = target;
-
-      viewport.setPointerCapture(event.pointerId);
+      startXRef.current = event.clientX;
+      startTargetRef.current = targetRef.current;
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (!isDown) return;
+      if (!isDraggingRef.current) return;
 
-      const movement = event.clientX - startX;
+      const movement = event.clientX - startXRef.current;
 
       if (Math.abs(movement) > 5) {
         didDragRef.current = true;
       }
 
-      target = startTarget - movement;
+      targetRef.current = startTargetRef.current - movement;
     };
 
     const onPointerUp = () => {
-      isDown = false;
+      isDraggingRef.current = false;
     };
 
     const onResize = () => {
@@ -158,9 +160,9 @@ export default function Home() {
 
     viewport.addEventListener("wheel", onWheel, { passive: true });
     viewport.addEventListener("pointerdown", onPointerDown);
-    viewport.addEventListener("pointermove", onPointerMove);
-    viewport.addEventListener("pointerup", onPointerUp);
-    viewport.addEventListener("pointercancel", onPointerUp);
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", onPointerUp);
+    window.addEventListener("pointercancel", onPointerUp);
     window.addEventListener("resize", onResize);
 
     return () => {
@@ -168,16 +170,18 @@ export default function Home() {
 
       viewport.removeEventListener("wheel", onWheel);
       viewport.removeEventListener("pointerdown", onPointerDown);
-      viewport.removeEventListener("pointermove", onPointerMove);
-      viewport.removeEventListener("pointerup", onPointerUp);
-      viewport.removeEventListener("pointercancel", onPointerUp);
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", onPointerUp);
+      window.removeEventListener("pointercancel", onPointerUp);
       window.removeEventListener("resize", onResize);
     };
   }, []);
 
-  /* LIGHTBOX KEYBOARD CONTROLS */
+  /* LIGHTBOX KEYBOARD AND SCROLL CONTROLS */
   useEffect(() => {
     if (activeIndex === null) return;
+
+    const previousOverflow = document.body.style.overflow;
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") setActiveIndex(null);
@@ -185,17 +189,18 @@ export default function Home() {
       if (event.key === "ArrowRight") showNext();
     };
 
-    document.addEventListener("keydown", onKeyDown);
     document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
 
     return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKeyDown);
     };
-  }, [activeIndex]);
+  }, [activeIndex, showNext, showPrevious]);
 
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
+
       {/* HERO */}
       <section className="text-center py-32 relative z-10">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
@@ -242,6 +247,14 @@ export default function Home() {
                 key={`${src}-${i}`}
                 className="w-[260px] h-[180px] flex-shrink-0"
                 style={{ willChange: "transform, opacity" }}
+                onClick={() => {
+                  if (didDragRef.current) {
+                    didDragRef.current = false;
+                    return;
+                  }
+
+                  setActiveIndex(i % images.length);
+                }}
               >
                 <img
                   src={src}
@@ -250,14 +263,6 @@ export default function Home() {
                   decoding="async"
                   draggable={false}
                   className="w-full h-full object-cover rounded-xl cursor-pointer"
-                  onClick={() => {
-                    if (didDragRef.current) {
-                      didDragRef.current = false;
-                      return;
-                    }
-
-                    setActiveIndex(i % images.length);
-                  }}
                 />
               </div>
             ))}
@@ -271,17 +276,17 @@ export default function Home() {
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-md p-4 sm:p-8"
           onClick={() => setActiveIndex(null)}
         >
-          {/* CLOSE BUTTON */}
+          {/* CLOSE */}
           <button
             type="button"
             aria-label="Close lightbox"
             onClick={() => setActiveIndex(null)}
-            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 text-white/80 text-2xl transition hover:bg-white/15 hover:text-white"
+            className="absolute top-5 right-5 sm:top-8 sm:right-8 z-30 flex h-11 w-11 items-center justify-center rounded-full border border-white/25 bg-white/5 text-white/80 text-3xl transition hover:bg-white/20 hover:text-white"
           >
             ×
           </button>
 
-          {/* PREVIOUS BUTTON */}
+          {/* PREVIOUS */}
           <button
             type="button"
             aria-label="Previous photo"
@@ -289,12 +294,12 @@ export default function Home() {
               event.stopPropagation();
               showPrevious();
             }}
-            className="absolute left-3 sm:left-8 z-20 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white/90 text-3xl transition hover:bg-white/15 hover:border-white/50"
+            className="absolute left-3 sm:left-8 z-30 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/50 text-white text-4xl transition hover:bg-white/20 hover:border-white/50"
           >
             ‹
           </button>
 
-          {/* PHOTO */}
+          {/* IMAGE AND COUNTER */}
           <div
             className="flex h-full w-full flex-col items-center justify-center gap-5"
             onClick={(event) => event.stopPropagation()}
@@ -303,7 +308,7 @@ export default function Home() {
               key={images[activeIndex]}
               src={images[activeIndex]}
               alt={`viši velo bicycle build ${activeIndex + 1}`}
-              className="max-h-[78vh] max-w-[85vw] object-contain rounded-sm shadow-2xl"
+              className="max-h-[78vh] max-w-[82vw] object-contain shadow-2xl"
             />
 
             <p className="text-sm tracking-[0.25em] text-white/50">
@@ -312,7 +317,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* NEXT BUTTON */}
+          {/* NEXT */}
           <button
             type="button"
             aria-label="Next photo"
@@ -320,7 +325,7 @@ export default function Home() {
               event.stopPropagation();
               showNext();
             }}
-            className="absolute right-3 sm:right-8 z-20 flex h-11 w-11 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/40 text-white/90 text-3xl transition hover:bg-white/15 hover:border-white/50"
+            className="absolute right-3 sm:right-8 z-30 flex h-12 w-12 sm:h-14 sm:w-14 items-center justify-center rounded-full border border-white/25 bg-black/50 text-white text-4xl transition hover:bg-white/20 hover:border-white/50"
           >
             ›
           </button>
