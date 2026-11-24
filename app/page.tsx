@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -5,6 +6,7 @@ import Link from "next/link";
 
 export default function Home() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const viewportRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
 
   const images = [
@@ -28,100 +30,124 @@ export default function Home() {
 
   const looped = [...images, ...images, ...images];
 
-  /* ===== BACKGROUND SCROLL TRANSITION ===== */
+  /* BACKGROUND SCROLL TRANSITION */
+
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
     const onScroll = () => {
       if (!bg) return;
-      const y = window.scrollY;
 
-      if (y > 250) bg.classList.add("expand");
-      else bg.classList.remove("expand");
+      if (window.scrollY > 250) {
+        bg.classList.add("expand");
+      } else {
+        bg.classList.remove("expand");
+      }
     };
 
     window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
   }, []);
 
-  /* ===== CAROUSEL ===== */
+  /* CAROUSEL */
+
   useEffect(() => {
     const el = trackRef.current;
-    if (!el) return;
+    const viewport = viewportRef.current;
+
+    if (!el || !viewport) return;
 
     let x = 0;
     let target = 0;
     let isDown = false;
     let startX = 0;
     let startTarget = 0;
+    let rafId = 0;
 
     const cards = Array.from(el.children) as HTMLElement[];
 
     const animate = () => {
       x += (target - x) * 0.08;
-      el.style.transform = `translateX(${-x}px)`;
+
+      el.style.transform = `translate3d(${-x}px, 0, 0)`;
 
       const center = window.innerWidth / 2;
 
-      cards.forEach((c) => {
-        const r = c.getBoundingClientRect();
-        const dist = Math.abs(center - (r.left + r.width / 2));
-        const s = 0.85 + (1 - Math.min(dist / 700, 1)) * 0.35;
+      cards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
 
-        c.style.transform = `scale(${s})`;
-        c.style.opacity = String(0.4 + (1 - Math.min(dist / 700, 1)) * 0.6);
+        const dist = Math.abs(
+          center - (rect.left + rect.width / 2)
+        );
+
+        const proximity = 1 - Math.min(dist / 700, 1);
+
+        const scale = 0.85 + proximity * 0.35;
+
+        card.style.transform = `scale(${scale})`;
+        card.style.opacity = String(0.4 + proximity * 0.6);
       });
 
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
-    animate();
+    rafId = requestAnimationFrame(animate);
 
-    const wheel = (e: WheelEvent) => (target += e.deltaY);
+    /* MOUSE AND TOUCH DRAG */
 
-    const down = (e: MouseEvent) => {
+    const down = (e: PointerEvent) => {
+      if (e.button !== 0 && e.pointerType === "mouse") return;
+
       isDown = true;
       startX = e.clientX;
       startTarget = target;
+
+      viewport.setPointerCapture(e.pointerId);
     };
 
-    const move = (e: MouseEvent) => {
+    const move = (e: PointerEvent) => {
       if (!isDown) return;
+
       target = startTarget - (e.clientX - startX);
     };
 
-    const up = () => (isDown = false);
-
-    let tx = 0;
-    const tstart = (e: TouchEvent) => {
-      tx = e.touches[0].clientX;
-      startTarget = target;
+    const up = () => {
+      isDown = false;
     };
 
-    const tmove = (e: TouchEvent) => {
-      target = startTarget - (e.touches[0].clientX - tx);
+    /* SCROLL OVER CAROUSEL */
+
+    const wheel = (e: WheelEvent) => {
+      target += Math.abs(e.deltaY) > Math.abs(e.deltaX)
+        ? e.deltaY
+        : e.deltaX;
     };
 
-    window.addEventListener("wheel", wheel, { passive: true });
-    window.addEventListener("mousedown", down);
-    window.addEventListener("mousemove", move);
-    window.addEventListener("mouseup", up);
-    window.addEventListener("touchstart", tstart, { passive: true });
-    window.addEventListener("touchmove", tmove, { passive: true });
+    viewport.addEventListener("pointerdown", down);
+    viewport.addEventListener("pointermove", move);
+    viewport.addEventListener("pointerup", up);
+    viewport.addEventListener("pointercancel", up);
+    viewport.addEventListener("wheel", wheel, { passive: true });
 
     return () => {
-      window.removeEventListener("wheel", wheel);
-      window.removeEventListener("mousedown", down);
-      window.removeEventListener("mousemove", move);
-      window.removeEventListener("mouseup", up);
-      window.removeEventListener("touchstart", tstart);
-      window.removeEventListener("touchmove", tmove);
+      cancelAnimationFrame(rafId);
+
+      viewport.removeEventListener("pointerdown", down);
+      viewport.removeEventListener("pointermove", move);
+      viewport.removeEventListener("pointerup", up);
+      viewport.removeEventListener("pointercancel", up);
+      viewport.removeEventListener("wheel", wheel);
     };
   }, []);
 
   return (
     <main className="relative min-h-screen text-white overflow-hidden">
-      {/* HERO MUST BE TRANSPARENT */}
+
+      {/* HERO */}
+
       <section className="text-center py-32 relative z-10">
         <h1 className="text-6xl tracking-widest text-[#d9772a]">
           viši velo
@@ -132,25 +158,50 @@ export default function Home() {
         </p>
 
         <div className="mt-10 flex justify-center gap-4">
-          <Link className="bg-white text-black px-6 py-3 rounded-full" href="/service">
+          <Link
+            className="bg-white text-black px-6 py-3 rounded-full"
+            href="/service"
+          >
             Book Service
           </Link>
-          <Link className="border border-white/30 px-6 py-3 rounded-full" href="/service-menu">
+
+          <Link
+            className="border border-white/30 px-6 py-3 rounded-full"
+            href="/service-menu"
+          >
             Service Menu
           </Link>
         </div>
       </section>
 
+      {/* BUILD ARCHIVE */}
+
       <section className="py-20 px-6 border-t border-white/10 relative z-10">
         <h2 className="text-3xl">Build Archive</h2>
 
-        <div className="mt-10 overflow-hidden">
-          <div ref={trackRef} className="flex gap-4 w-max">
+        <div
+          ref={viewportRef}
+          className="mt-10 overflow-hidden cursor-grab active:cursor-grabbing"
+          style={{ touchAction: "pan-y" }}
+        >
+          <div
+            ref={trackRef}
+            className="flex gap-4 w-max"
+            style={{ willChange: "transform" }}
+          >
             {looped.map((src, i) => (
-              <div key={i} className="w-[260px] h-[180px] flex-shrink-0">
+              <div
+                key={`${src}-${i}`}
+                className="w-[260px] h-[180px] flex-shrink-0"
+                style={{ willChange: "transform" }}
+              >
                 <img
                   src={src}
-                  className="w-full h-full object-cover rounded-xl cursor-pointer"
+                  alt={`viši velo bicycle build ${((i % images.length) + 1)}`}
+                  loading={i < 8 ? "eager" : "lazy"}
+                  decoding="async"
+                  draggable={false}
+                  className="w-full h-full object-cover rounded-xl cursor-pointer select-none"
                   onClick={() => setActive(src)}
                 />
               </div>
@@ -159,14 +210,22 @@ export default function Home() {
         </div>
       </section>
 
+      {/* IMAGE LIGHTBOX */}
+
       {active && (
         <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 cursor-pointer"
           onClick={() => setActive(null)}
         >
-          <img src={active} className="max-w-[90vw] max-h-[90vh]" />
+          <img
+            src={active}
+            alt="Selected viši velo bicycle build"
+            decoding="async"
+            className="max-w-[90vw] max-h-[90vh] object-contain"
+          />
         </div>
       )}
+
     </main>
   );
 }
