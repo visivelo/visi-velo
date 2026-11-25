@@ -65,4 +65,25 @@ export const bikes: Bike[] = [
       "/Images/Builds/44.JPG",
     ],
   },
+  {
+    id: "1998-trek-singletrack-930",
+    name: "Trek Singletrack 930",
+    year: "1998",
+    price: 400,
+    size: '13.5"',
+    description:
+      "A 1998 Trek Singletrack 930 mountain bike with its fully original build.",
+    condition: "Fully original build",
+    specifications: [
+      "Fully original build",
+      '13.5" frame',
+    ],
+    images: [
+      "/Images/Builds/31.JPG",
+      "/Images/Builds/32.JPG",
+      "/Images/Builds/33.JPG",
+      "/Images/Builds/34.JPG",
+      "/Images/Builds/35.JPG",
+    ],
+  },
 ];
