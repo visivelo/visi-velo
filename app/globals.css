@@ -250,3 +250,23 @@ main {
     opacity: 0.2;
   }
 }
+
+/* =========================
+   FORCE SERVICE MENU PRICING
+   FULL OPACITY
+========================= */
+
+.service-menu .price-row,
+.service-menu .price-row span,
+.service-menu .price-row .svc-name,
+.service-menu .price-row .svc-price {
+  opacity: 1 !important;
+  color: #d9772a !important;
+  -webkit-text-fill-color: #d9772a !important;
+  filter: none !important;
+  mix-blend-mode: normal !important;
+}
+
+.service-menu .price-row {
+  isolation: isolate;
+}
