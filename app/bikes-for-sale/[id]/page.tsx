@@ -1,25 +1,26 @@
 
+"use client";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { useState } from "react";
 import { bikes } from "../bikes";
 
-export function generateStaticParams() {
-  return bikes.map((bike) => ({
-    id: bike.id,
-  }));
-}
-
-export default async function BikeDetailPage({
+export default function BikeDetailPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const { id } = await params;
-  const bike = bikes.find((item) => item.id === id);
+  const bike = bikes.find((item) => item.id === params.id);
+  const [selectedImage, setSelectedImage] = useState(0);
 
   if (!bike) {
     notFound();
   }
+
+  const nextImage = () => {
+    setSelectedImage((current) => (current + 1) % bike.images.length);
+  };
 
   return (
     <main className="min-h-screen px-5 py-12 sm:px-10">
@@ -33,12 +34,23 @@ export default async function BikeDetailPage({
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div>
-            <div className="overflow-hidden rounded-sm bg-black">
+            <div className="relative overflow-hidden rounded-sm bg-black">
               <img
-                src={bike.images[0]}
+                src={bike.images[selectedImage]}
                 alt={bike.name}
                 className="w-full object-contain"
               />
+
+              {bike.images.length > 1 && (
+                <button
+                  type="button"
+                  onClick={nextImage}
+                  aria-label="Next photo"
+                  className="absolute right-4 top-1/2 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/70 text-4xl text-white transition hover:bg-[#d9772a] hover:text-black"
+                >
+                  ›
+                </button>
+              )}
             </div>
 
             <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
@@ -127,4 +139,3 @@ export default async function BikeDetailPage({
     </main>
   );
 }
-
