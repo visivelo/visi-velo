@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { bikes } from "../bikes";
+import BikeGallery from "./BikeGallery";
 
 export function generateStaticParams() {
   return bikes.map((bike) => ({
@@ -32,30 +33,7 @@ export default async function BikeDetailPage({
         </Link>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
-          <div>
-            <div className="overflow-hidden rounded-sm bg-black">
-              <img
-                src={bike.images[0]}
-                alt={bike.name}
-                className="w-full object-contain"
-              />
-            </div>
-
-            <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
-              {bike.images.slice(1).map((image, index) => (
-                <div
-                  key={image}
-                  className="overflow-hidden rounded-sm bg-black"
-                >
-                  <img
-                    src={image}
-                    alt={`${bike.name} photo ${index + 2}`}
-                    className="aspect-square w-full object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          <BikeGallery images={bike.images} bikeName={bike.name} />
 
           <div className="lg:sticky lg:top-10 lg:self-start">
             <div className="rounded-sm border border-[#d9772a]/40 bg-[#080604]/95 p-6 shadow-2xl sm:p-8">
@@ -127,4 +105,3 @@ export default async function BikeDetailPage({
     </main>
   );
 }
-
