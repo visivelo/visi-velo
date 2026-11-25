@@ -22,11 +22,11 @@ export default async function BikeDetailPage({
   }
 
   return (
-    <main className="min-h-screen px-5 py-12 sm:px-10">
+    <main className="min-h-screen px-5 py-12 sm:px-10 text-[#d9772a]">
       <div className="mx-auto max-w-7xl">
         <Link
           href="/bikes-for-sale"
-          className="mb-10 inline-block text-sm tracking-widest text-white/70 transition hover:text-[#d9772a]"
+          className="mb-10 inline-block text-sm tracking-widest text-[#d9772a] transition hover:opacity-70"
         >
           ← BACK TO BIKES FOR SALE
         </Link>
@@ -66,19 +66,19 @@ export default async function BikeDetailPage({
               {bike.name}
             </h1>
 
-            <p className="mt-5 text-3xl font-semibold text-white">
+            <p className="mt-5 text-3xl font-semibold text-[#d9772a]">
               ${bike.price.toLocaleString("en-US")}
             </p>
 
-            <div className="my-8 border-y border-white/20 py-5">
+            <div className="my-8 border-y border-[#d9772a]/30 py-5">
               <div className="flex justify-between py-2">
-                <span className="text-white/60">Frame size</span>
-                <span className="text-white">{bike.size}</span>
+                <span className="text-[#d9772a]">Frame size</span>
+                <span className="text-[#d9772a]">{bike.size}</span>
               </div>
 
               <div className="flex justify-between py-2">
-                <span className="text-white/60">Condition</span>
-                <span className="text-white">{bike.condition}</span>
+                <span className="text-[#d9772a]">Condition</span>
+                <span className="text-[#d9772a]">{bike.condition}</span>
               </div>
             </div>
 
@@ -86,7 +86,7 @@ export default async function BikeDetailPage({
               DESCRIPTION
             </h2>
 
-            <p className="leading-relaxed text-white/85">
+            <p className="leading-relaxed text-[#d9772a]">
               {bike.description}
             </p>
 
@@ -98,7 +98,7 @@ export default async function BikeDetailPage({
               {bike.specifications.map((specification) => (
                 <li
                   key={specification}
-                  className="border-b border-white/10 pb-3 text-white/85"
+                  className="border-b border-[#d9772a]/20 pb-3 text-[#d9772a]"
                 >
                   {specification}
                 </li>
@@ -107,7 +107,7 @@ export default async function BikeDetailPage({
 
             <a
               href="mailto:info@visivelo.com?subject=1996%20Specialized%20Stumpjumper%20M2"
-              className="mt-10 inline-block rounded-full bg-white px-8 py-4 text-sm font-semibold tracking-widest text-black transition hover:text-[#d9772a]"
+              className="mt-10 inline-block rounded-full bg-white px-8 py-4 text-sm font-semibold tracking-widest text-[#d9772a] transition hover:opacity-80"
             >
               INQUIRE ABOUT THIS BIKE
             </a>
