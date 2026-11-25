@@ -37,4 +37,32 @@ export const bikes: Bike[] = [
       "/Images/Builds/30.JPG",
     ],
   },
+  {
+    id: "1996-gt-avalanche",
+    name: "GT Avalanche",
+    year: "1996",
+    price: 600,
+    size: '22"',
+    description:
+      "A 1996 GT Avalanche rebuilt with a 1x11 drivetrain, Shimano Deore shifting, and Nitto handlebars.",
+    condition: "Great condition",
+    specifications: [
+      "1x11 drivetrain",
+      "Shimano Deore rear derailleur",
+      "Shimano Deore shifter",
+      "Nitto handlebars",
+      '22" frame',
+    ],
+    images: [
+      "/Images/Builds/36.JPG",
+      "/Images/Builds/37.JPG",
+      "/Images/Builds/38.JPG",
+      "/Images/Builds/39.JPG",
+      "/Images/Builds/40.JPG",
+      "/Images/Builds/41.JPG",
+      "/Images/Builds/42.JPG",
+      "/Images/Builds/43.JPG",
+      "/Images/Builds/44.JPG",
+    ],
+  },
 ];
