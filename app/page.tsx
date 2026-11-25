@@ -37,6 +37,7 @@ export default function Home() {
     );
   }, [images.length]);
 
+  /* BACKGROUND */
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
@@ -111,7 +112,6 @@ export default function Home() {
 
         track.style.transform = `translate3d(${-x}px, 0, 0)`;
 
-        // Desktop-only card scaling effect
         if (!isMobile) {
           const bounds = viewport.getBoundingClientRect();
           const center = bounds.left + bounds.width / 2;
@@ -172,6 +172,7 @@ export default function Home() {
 
     const onMediaChange = (event: MediaQueryListEvent) => {
       isMobile = event.matches;
+
       cards.forEach((card) => {
         card.style.transform = "";
         card.style.opacity = "";
@@ -212,7 +213,7 @@ export default function Home() {
     };
   }, []);
 
-  /* LIGHTBOX CONTROLS */
+  /* LIGHTBOX KEYBOARD AND SCROLL CONTROLS */
   useEffect(() => {
     if (activeIndex === null) return;
 
@@ -300,7 +301,8 @@ export default function Home() {
                 <img
                   src={src}
                   alt={`viši velo bicycle build ${src.split("/").pop()}`}
-                  loading="lazy"
+                  loading={i < images.length * 2 ? "eager" : "lazy"}
+                  fetchPriority={i < images.length ? "high" : "auto"}
                   decoding="async"
                   draggable={false}
                   className="w-full h-full object-cover rounded-xl cursor-pointer"
