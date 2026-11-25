@@ -1,40 +1,69 @@
+
 import Link from "next/link";
-import { bikes } from "../data/bikes";
+import { bikes } from "./bikes";
 
 export default function BikesForSalePage() {
   return (
-    <main className="relative min-h-screen text-white">
-      <section className="px-6 py-24">
-        <div className="mx-auto max-w-7xl">
-          <h1 className="text-center text-6xl tracking-widest text-[#d9772a]">
-            Bikes For Sale
+    <main className="min-h-screen px-5 py-16 sm:px-10">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl font-medium tracking-widest text-[#d9772a] sm:text-5xl">
+            Bikes for Sale
           </h1>
+          <p className="mt-4 text-lg text-white/80">
+            Carefully selected bicycles from viši velo.
+          </p>
+        </div>
 
-          <div className="mt-20 grid gap-12 sm:grid-cols-2 xl:grid-cols-3">
+        {bikes.length === 0 ? (
+          <p className="py-20 text-center text-white/70">
+            No bikes currently listed. Check back soon.
+          </p>
+        ) : (
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {bikes.map((bike) => (
               <Link
                 key={bike.id}
                 href={`/bikes-for-sale/${bike.id}`}
-                className="group"
+                className="group overflow-hidden rounded-sm border border-white/15 bg-black/60 transition hover:border-[#d9772a]"
               >
-                <div className="overflow-hidden rounded-xl border border-white/10 bg-black/20">
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img
-                      src={bike.coverImage}
-                      alt={bike.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
-                  </div>
+                <div className="aspect-[4/3] overflow-hidden bg-black">
+                  <img
+                    src={bike.images[0]}
+                    alt={bike.name}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
                 </div>
 
-                <h2 className="mt-4 text-center text-xl text-[#d9772a]">
-                  {bike.title}
-                </h2>
+                <div className="p-5">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="mb-2 text-sm tracking-widest text-[#d9772a]">
+                        {bike.year}
+                      </p>
+                      <h2 className="text-xl font-medium text-white">
+                        {bike.name}
+                      </h2>
+                    </div>
+
+                    <p className="whitespace-nowrap text-xl font-semibold text-[#d9772a]">
+                      ${bike.price.toLocaleString("en-US")}
+                    </p>
+                  </div>
+
+                  <p className="mt-3 text-sm text-white/70">
+                    {bike.size} frame · {bike.condition}
+                  </p>
+
+                  <p className="mt-5 text-sm tracking-widest text-white transition group-hover:text-[#d9772a]">
+                    VIEW DETAILS →
+                  </p>
+                </div>
               </Link>
             ))}
           </div>
-        </div>
-      </section>
+        )}
+      </div>
     </main>
   );
 }

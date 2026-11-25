@@ -1,74 +1,119 @@
-"use client";
 
-import { useState } from "react";
-import { bikes } from "../../data/bikes";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { bikes } from "../bikes";
 
-export default function BikeDetailPage({
+export function generateStaticParams() {
+  return bikes.map((bike) => ({
+    id: bike.id,
+  }));
+}
+
+export default async function BikeDetailPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const bike = bikes.find((b) => b.id === params.id);
-  const [active, setActive] = useState<string | null>(null);
+  const { id } = await params;
+  const bike = bikes.find((item) => item.id === id);
 
-  if (!bike) return notFound();
+  if (!bike) {
+    notFound();
+  }
 
   return (
-    <main className="relative min-h-screen text-white px-6 py-24">
-      <div className="mx-auto max-w-6xl">
-        <h1 className="text-5xl tracking-widest text-[#d9772a] text-center">
-          {bike.title}
-        </h1>
+    <main className="min-h-screen px-5 py-12 sm:px-10">
+      <div className="mx-auto max-w-7xl">
+        <Link
+          href="/bikes-for-sale"
+          className="mb-10 inline-block text-sm tracking-widest text-white/70 transition hover:text-[#d9772a]"
+        >
+          ← BACK TO BIKES FOR SALE
+        </Link>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {/* MAIN */}
-          <div className="overflow-hidden rounded-xl border border-white/10">
-            <img
-              src={bike.coverImage}
-              alt={bike.title}
-              className="w-full h-full object-cover"
-              onClick={() => setActive(bike.coverImage)}
-            />
-          </div>
-
-          {/* INFO */}
-          <div className="flex flex-col gap-4">
-            <p className="text-white/80">{bike.description}</p>
-
-            <div className="text-[#d9772a] text-2xl">{bike.price}</div>
-          </div>
-        </div>
-
-        {/* GALLERY GRID */}
-        <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {bike.images.map((img, i) => (
-            <div
-              key={i}
-              className="overflow-hidden rounded-lg border border-white/10 group cursor-pointer"
-              onClick={() => setActive(img)}
-            >
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
+          <div>
+            <div className="overflow-hidden bg-black">
               <img
-                src={img}
-                className="w-full h-40 object-cover transition-transform duration-300 group-hover:scale-105"
+                src={bike.images[0]}
+                alt={bike.name}
+                className="w-full object-contain"
               />
             </div>
-          ))}
+
+            <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
+              {bike.images.slice(1).map((image, index) => (
+                <div
+                  key={image}
+                  className="overflow-hidden bg-black"
+                >
+                  <img
+                    src={image}
+                    alt={`${bike.name} photo ${index + 2}`}
+                    className="aspect-square w-full object-cover"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:sticky lg:top-10 lg:self-start">
+            <p className="mb-3 tracking-widest text-[#d9772a]">
+              {bike.year}
+            </p>
+
+            <h1 className="text-3xl font-medium tracking-wide text-[#d9772a] sm:text-4xl">
+              {bike.name}
+            </h1>
+
+            <p className="mt-5 text-3xl font-semibold text-white">
+              ${bike.price.toLocaleString("en-US")}
+            </p>
+
+            <div className="my-8 border-y border-white/20 py-5">
+              <div className="flex justify-between py-2">
+                <span className="text-white/60">Frame size</span>
+                <span className="text-white">{bike.size}</span>
+              </div>
+
+              <div className="flex justify-between py-2">
+                <span className="text-white/60">Condition</span>
+                <span className="text-white">{bike.condition}</span>
+              </div>
+            </div>
+
+            <h2 className="mb-4 text-xl tracking-widest text-[#d9772a]">
+              DESCRIPTION
+            </h2>
+
+            <p className="leading-relaxed text-white/85">
+              {bike.description}
+            </p>
+
+            <h2 className="mb-4 mt-8 text-xl tracking-widest text-[#d9772a]">
+              SPECIFICATIONS
+            </h2>
+
+            <ul className="space-y-3">
+              {bike.specifications.map((specification) => (
+                <li
+                  key={specification}
+                  className="border-b border-white/10 pb-3 text-white/85"
+                >
+                  {specification}
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href="mailto:info@visivelo.com?subject=1996%20Specialized%20Stumpjumper%20M2"
+              className="mt-10 inline-block rounded-full bg-white px-8 py-4 text-sm font-semibold tracking-widest text-black transition hover:text-[#d9772a]"
+            >
+              INQUIRE ABOUT THIS BIKE
+            </a>
+          </div>
         </div>
       </div>
-
-      {/* LIGHTBOX */}
-      {active && (
-        <div
-          className="fixed inset-0 bg-black/90 flex items-center justify-center z-50"
-          onClick={() => setActive(null)}
-        >
-          <img
-            src={active}
-            className="max-w-[90vw] max-h-[90vh] object-contain"
-          />
-        </div>
-      )}
     </main>
   );
 }
