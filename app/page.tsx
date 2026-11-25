@@ -1,6 +1,7 @@
 
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
@@ -287,7 +288,7 @@ export default function Home() {
             {looped.map((src, i) => (
               <div
                 key={`${src}-${i}`}
-                className="w-[200px] h-[140px] sm:w-[260px] sm:h-[180px] flex-shrink-0"
+                className="relative w-[200px] h-[140px] sm:w-[260px] sm:h-[180px] flex-shrink-0"
                 style={{ willChange: "transform" }}
                 onClick={() => {
                   if (didDragRef.current) {
@@ -298,14 +299,15 @@ export default function Home() {
                   setActiveIndex(i % images.length);
                 }}
               >
-                <img
+                <Image
                   src={src}
                   alt={`viši velo bicycle build ${src.split("/").pop()}`}
-                  loading={i < images.length * 2 ? "eager" : "lazy"}
-                  fetchPriority={i < images.length ? "high" : "auto"}
-                  decoding="async"
+                  fill
+                  sizes="(max-width: 768px) 200px, 260px"
+                  quality={65}
+                  loading="lazy"
                   draggable={false}
-                  className="w-full h-full object-cover rounded-xl cursor-pointer"
+                  className="object-cover rounded-xl cursor-pointer"
                 />
               </div>
             ))}
