@@ -22,18 +22,18 @@ export default async function BikeDetailPage({
   }
 
   return (
-    <main className="min-h-screen px-5 py-12 sm:px-10 text-[#d9772a]">
+    <main className="min-h-screen px-5 py-12 sm:px-10">
       <div className="mx-auto max-w-7xl">
         <Link
           href="/bikes-for-sale"
-          className="mb-10 inline-block text-sm tracking-widest text-[#d9772a] transition hover:opacity-70"
+          className="mb-10 inline-block text-base font-semibold tracking-widest text-[#d9772a] transition hover:opacity-70"
         >
           ← BACK TO BIKES FOR SALE
         </Link>
 
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2">
           <div>
-            <div className="overflow-hidden bg-black">
+            <div className="overflow-hidden rounded-sm bg-black">
               <img
                 src={bike.images[0]}
                 alt={bike.name}
@@ -45,7 +45,7 @@ export default async function BikeDetailPage({
               {bike.images.slice(1).map((image, index) => (
                 <div
                   key={image}
-                  className="overflow-hidden bg-black"
+                  className="overflow-hidden rounded-sm bg-black"
                 >
                   <img
                     src={image}
@@ -58,59 +58,69 @@ export default async function BikeDetailPage({
           </div>
 
           <div className="lg:sticky lg:top-10 lg:self-start">
-            <p className="mb-3 tracking-widest text-[#d9772a]">
-              {bike.year}
-            </p>
+            <div className="rounded-sm border border-[#d9772a]/40 bg-[#080604]/95 p-6 shadow-2xl sm:p-8">
+              <p className="mb-4 text-base font-semibold tracking-[0.25em] text-[#d9772a]">
+                {bike.year}
+              </p>
 
-            <h1 className="text-3xl font-medium tracking-wide text-[#d9772a] sm:text-4xl">
-              {bike.name}
-            </h1>
+              <h1 className="text-4xl font-bold leading-tight tracking-wide text-[#d9772a] sm:text-5xl">
+                {bike.name}
+              </h1>
 
-            <p className="mt-5 text-3xl font-semibold text-[#d9772a]">
-              ${bike.price.toLocaleString("en-US")}
-            </p>
+              <p className="mt-6 text-4xl font-bold tracking-wide text-[#d9772a] sm:text-5xl">
+                ${bike.price.toLocaleString("en-US")}
+              </p>
 
-            <div className="my-8 border-y border-[#d9772a]/30 py-5">
-              <div className="flex justify-between py-2">
-                <span className="text-[#d9772a]">Frame size</span>
-                <span className="text-[#d9772a]">{bike.size}</span>
+              <div className="my-8 border-y border-[#d9772a]/50 py-5">
+                <div className="flex justify-between gap-4 py-3">
+                  <span className="text-lg font-semibold text-[#d9772a]">
+                    Frame size
+                  </span>
+                  <span className="text-lg font-bold text-[#d9772a]">
+                    {bike.size}
+                  </span>
+                </div>
+
+                <div className="flex justify-between gap-4 py-3">
+                  <span className="text-lg font-semibold text-[#d9772a]">
+                    Condition
+                  </span>
+                  <span className="text-lg font-bold text-[#d9772a]">
+                    {bike.condition}
+                  </span>
+                </div>
               </div>
 
-              <div className="flex justify-between py-2">
-                <span className="text-[#d9772a]">Condition</span>
-                <span className="text-[#d9772a]">{bike.condition}</span>
-              </div>
+              <h2 className="mb-4 text-2xl font-bold tracking-[0.15em] text-[#d9772a]">
+                DESCRIPTION
+              </h2>
+
+              <p className="text-lg leading-relaxed font-medium text-[#d9772a]">
+                {bike.description}
+              </p>
+
+              <h2 className="mb-5 mt-10 text-2xl font-bold tracking-[0.15em] text-[#d9772a]">
+                SPECIFICATIONS
+              </h2>
+
+              <ul className="space-y-4">
+                {bike.specifications.map((specification) => (
+                  <li
+                    key={specification}
+                    className="border-b border-[#d9772a]/30 pb-4 text-lg font-medium text-[#d9772a]"
+                  >
+                    {specification}
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={`mailto:info@visivelo.com?subject=${encodeURIComponent(bike.year + " " + bike.name)}`}
+                className="mt-10 block rounded-full border border-white bg-white px-8 py-5 text-center text-base font-bold tracking-[0.15em] text-[#d9772a] transition hover:bg-[#d9772a] hover:text-black"
+              >
+                INQUIRE ABOUT THIS BIKE
+              </a>
             </div>
-
-            <h2 className="mb-4 text-xl tracking-widest text-[#d9772a]">
-              DESCRIPTION
-            </h2>
-
-            <p className="leading-relaxed text-[#d9772a]">
-              {bike.description}
-            </p>
-
-            <h2 className="mb-4 mt-8 text-xl tracking-widest text-[#d9772a]">
-              SPECIFICATIONS
-            </h2>
-
-            <ul className="space-y-3">
-              {bike.specifications.map((specification) => (
-                <li
-                  key={specification}
-                  className="border-b border-[#d9772a]/20 pb-3 text-[#d9772a]"
-                >
-                  {specification}
-                </li>
-              ))}
-            </ul>
-
-            <a
-              href="mailto:info@visivelo.com?subject=1996%20Specialized%20Stumpjumper%20M2"
-              className="mt-10 inline-block rounded-full bg-white px-8 py-4 text-sm font-semibold tracking-widest text-[#d9772a] transition hover:opacity-80"
-            >
-              INQUIRE ABOUT THIS BIKE
-            </a>
           </div>
         </div>
       </div>
