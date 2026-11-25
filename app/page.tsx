@@ -37,7 +37,6 @@ export default function Home() {
     );
   }, [images.length]);
 
-  /* BACKGROUND */
   useEffect(() => {
     const bg = document.getElementById("app-bg");
 
@@ -60,7 +59,9 @@ export default function Home() {
 
     const cards = Array.from(track.children) as HTMLElement[];
     const imageCount = images.length;
+    const mobileQuery = window.matchMedia("(max-width: 768px)");
 
+    let isMobile = mobileQuery.matches;
     let animationFrame = 0;
     let cycleWidth = 0;
     let initialized = false;
@@ -71,7 +72,6 @@ export default function Home() {
 
       const first = cards[0].getBoundingClientRect();
       const last = cards[imageCount - 1].getBoundingClientRect();
-
       const measuredWidth = last.right - first.left;
 
       if (measuredWidth <= 0) return;
@@ -94,7 +94,7 @@ export default function Home() {
         let x = positionRef.current;
         let target = targetRef.current;
 
-        x += (target - x) * 0.08;
+        x += (target - x) * (isMobile ? 0.12 : 0.08);
 
         while (x < cycleWidth) {
           x += cycleWidth;
@@ -111,20 +111,23 @@ export default function Home() {
 
         track.style.transform = `translate3d(${-x}px, 0, 0)`;
 
-        const bounds = viewport.getBoundingClientRect();
-        const center = bounds.left + bounds.width / 2;
+        // Desktop-only card scaling effect
+        if (!isMobile) {
+          const bounds = viewport.getBoundingClientRect();
+          const center = bounds.left + bounds.width / 2;
 
-        cards.forEach((card) => {
-          const rect = card.getBoundingClientRect();
-          const distance = Math.abs(
-            center - (rect.left + rect.width / 2)
-          );
+          cards.forEach((card) => {
+            const rect = card.getBoundingClientRect();
+            const distance = Math.abs(
+              center - (rect.left + rect.width / 2)
+            );
 
-          const proximity = 1 - Math.min(distance / 700, 1);
+            const proximity = 1 - Math.min(distance / 700, 1);
 
-          card.style.transform = `scale(${0.85 + proximity * 0.35})`;
-          card.style.opacity = String(0.4 + proximity * 0.6);
-        });
+            card.style.transform = `scale(${0.85 + proximity * 0.35})`;
+            card.style.opacity = String(0.4 + proximity * 0.6);
+          });
+        }
       }
 
       animationFrame = requestAnimationFrame(animate);
@@ -167,14 +170,22 @@ export default function Home() {
       if (!document.hidden) measure();
     };
 
-    measure();
+    const onMediaChange = (event: MediaQueryListEvent) => {
+      isMobile = event.matches;
+      cards.forEach((card) => {
+        card.style.transform = "";
+        card.style.opacity = "";
+      });
+    };
 
+    measure();
     animationFrame = requestAnimationFrame(animate);
 
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(viewport);
     resizeObserver.observe(track);
 
+    mobileQuery.addEventListener("change", onMediaChange);
     viewport.addEventListener("wheel", onWheel, { passive: true });
     viewport.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("pointermove", onPointerMove);
@@ -189,6 +200,7 @@ export default function Home() {
       cancelAnimationFrame(animationFrame);
       resizeObserver.disconnect();
 
+      mobileQuery.removeEventListener("change", onMediaChange);
       viewport.removeEventListener("wheel", onWheel);
       viewport.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("pointermove", onPointerMove);
@@ -200,7 +212,7 @@ export default function Home() {
     };
   }, []);
 
-  /* LIGHTBOX KEYBOARD AND SCROLL CONTROLS */
+  /* LIGHTBOX CONTROLS */
   useEffect(() => {
     if (activeIndex === null) return;
 
@@ -268,14 +280,14 @@ export default function Home() {
         >
           <div
             ref={trackRef}
-            className="flex gap-4 w-max"
+            className="flex gap-3 sm:gap-4 w-max"
             style={{ willChange: "transform" }}
           >
             {looped.map((src, i) => (
               <div
                 key={`${src}-${i}`}
-                className="w-[260px] h-[180px] flex-shrink-0"
-                style={{ willChange: "transform, opacity" }}
+                className="w-[200px] h-[140px] sm:w-[260px] sm:h-[180px] flex-shrink-0"
+                style={{ willChange: "transform" }}
                 onClick={() => {
                   if (didDragRef.current) {
                     didDragRef.current = false;
@@ -288,7 +300,7 @@ export default function Home() {
                 <img
                   src={src}
                   alt={`viši velo bicycle build ${src.split("/").pop()}`}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                   draggable={false}
                   className="w-full h-full object-cover rounded-xl cursor-pointer"
