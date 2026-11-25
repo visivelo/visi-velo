@@ -22,7 +22,7 @@ export default async function BikeDetailPage({
   }
 
   return (
-    <main className="min-h-screen bg-black px-5 py-12 sm:px-10">
+    <main className="min-h-screen px-5 py-12 sm:px-10">
       <div className="mx-auto max-w-7xl">
         <Link
           href="/bikes-for-sale"
@@ -43,7 +43,10 @@ export default async function BikeDetailPage({
 
             <div className="mt-3 grid grid-cols-3 gap-3 sm:grid-cols-4">
               {bike.images.slice(1).map((image, index) => (
-                <div key={image} className="overflow-hidden bg-black">
+                <div
+                  key={image}
+                  className="overflow-hidden bg-black"
+                >
                   <img
                     src={image}
                     alt={`${bike.name} photo ${index + 2}`}

@@ -265,3 +265,21 @@ main {
     opacity: 0.2;
   }
 }
+
+/* =========================
+   BIKE LISTING BACKGROUND
+   Hide two-tone only.
+   Preserve watermark.
+========================= */
+
+body:has(a[href^="/bikes-for-sale/"]),
+body:has(a[href="/bikes-for-sale"]) {
+  background: #000000 !important;
+}
+
+body:has(a[href^="/bikes-for-sale/"]) .app-bg::before,
+body:has(a[href^="/bikes-for-sale/"]) .app-bg::after,
+body:has(a[href="/bikes-for-sale"]) .app-bg::before,
+body:has(a[href="/bikes-for-sale"]) .app-bg::after {
+  display: none;
+}
