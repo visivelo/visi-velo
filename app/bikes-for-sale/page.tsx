@@ -4,7 +4,7 @@ import { bikes } from "./bikes";
 
 export default function BikesForSalePage() {
   return (
-    <main className="min-h-screen px-5 py-16 sm:px-10">
+    <main className="min-h-screen bg-black px-5 py-16 sm:px-10">
       <div className="mx-auto max-w-7xl">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-medium tracking-widest text-[#d9772a] sm:text-5xl">
@@ -25,7 +25,7 @@ export default function BikesForSalePage() {
               <Link
                 key={bike.id}
                 href={`/bikes-for-sale/${bike.id}`}
-                className="group overflow-hidden rounded-sm border border-white/15 bg-black/60 transition hover:border-[#d9772a]"
+                className="group overflow-hidden rounded-sm border border-white/15 bg-black transition hover:border-[#d9772a]"
               >
                 <div className="aspect-[4/3] overflow-hidden bg-black">
                   <img
