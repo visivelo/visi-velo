@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -13,6 +14,7 @@ export default function ServicePage() {
 
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const bg = document.getElementById("app-bg");
@@ -21,8 +23,9 @@ export default function ServicePage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
     setLoading(true);
+    setSuccess(false);
+    setError("");
 
     try {
       const response = await fetch("/api/contact", {
@@ -31,20 +34,29 @@ export default function ServicePage() {
         body: JSON.stringify(form),
       });
 
-      if (response.ok) {
-        setSuccess(true);
-        setForm({
-          name: "",
-          email: "",
-          bike: "",
-          message: "",
-        });
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || "Failed to send request.");
       }
+
+      setSuccess(true);
+      setForm({
+        name: "",
+        email: "",
+        bike: "",
+        message: "",
+      });
     } catch (error) {
       console.error(error);
+      setError(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   }
 
   return (
@@ -57,7 +69,6 @@ export default function ServicePage() {
         service request
       </h1>
 
-      {/* ONLY CHANGE: TEXT COLOR -> ORANGE */}
       <p className="mt-4 max-w-xl italic text-[#d9772a] text-lg leading-relaxed">
         Schedule repair, restoration, consultation, or custom build services.
       </p>
@@ -108,6 +119,12 @@ export default function ServicePage() {
         {success && (
           <p className="text-black/70 mt-4">
             Request submitted successfully.
+          </p>
+        )}
+
+        {error && (
+          <p className="text-red-700 mt-4">
+            {error}
           </p>
         )}
       </form>
